@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Doctors - Care Connect Hospital</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    
+    <link rel="stylesheet" href="../css/main.css">
+    
+    <style>
+        .doctors-hero {
+            background: linear-gradient(135deg, rgba(13, 148, 136, 0.95) 0%, rgba(14, 165, 233, 0.95) 100%);
+            padding: 5rem 0;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .doctors-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23ffffff" fill-opacity="0.05"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
+        }
+        
+        .filter-section {
+            background: var(--white);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: var(--shadow-md);
+            margin-top: -50px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .specialty-filter .btn {
+            border: 2px solid var(--border-color);
+            background: var(--white);
+            color: var(--text-dark);
+            font-weight: 500;
+        }
+        
+        .specialty-filter .btn.active {
+            background: var(--primary-teal);
+            border-color: var(--primary-teal);
+            color: white;
+        }
+        
+        .specialty-filter .btn:hover {
+            border-color: var(--primary-teal);
+        }
+        
+        .doctor-card {
+            background: var(--white);
+            border-radius: 1.5rem;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition-base);
+            height: 100%;
+        }
+        
+        .doctor-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-xl);
+        }
+        
+        .doctor-image-container {
+            position: relative;
+            height: 280px;
+            overflow: hidden;
+        }
+        
+        .doctor-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition-slow);
+        }
+        
+        .doctor-card:hover .doctor-image-container img {
+            transform: scale(1.1);
+        }
+        
+        .doctor-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--success);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .doctor-info {
+            padding: 1.5rem;
+        }
+        
+        .doctor-name {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+        
+        .doctor-specialty {
+            color: var(--primary-teal);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+        
+        .doctor-stats {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .doctor-stat {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+        
+        .doctor-stat i {
+            color: var(--primary-teal);
+        }
+        
+        .doctor-actions {
+            display: flex;
+            gap: 0.75rem;
+        }
+        
+        .doctor-availability {
+            background: var(--light-bg);
+            border-radius: 0.75rem;
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .availability-title {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .availability-days {
+            display: flex;
+            gap: 0.25rem;
+        }
+        
+        .day-badge {
+            width: 32px;
+            height: 32px;
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 600;
+            background: var(--light-gray);
+            color: var(--text-muted);
+        }
+        
+        .day-badge.available {
+            background: var(--primary-teal);
+            color: white;
+        }
+        
+        .search-box {
+            position: relative;
+        }
+        
+        .search-box input {
+            width: 100%;
+            padding: 0.75rem 1rem 0.75rem 2.75rem;
+            border: 2px solid var(--border-color);
+            border-radius: 0.75rem;
+            font-size: 0.9rem;
+        }
+        
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--primary-teal);
+        }
+        
+        .search-box i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="hospital-header">
+        <div class="header-container">
+            <div class="logo-section">
+                <a href="../frontend/pages/index.html">
+                    <img src="../public/images/CareConnect Logo.png" alt="Care Connect" class="logo-img">
+                </a>
+                <span class="logo-text">Care Connect</span>
+            </div>
+            
+            <button class="menu-toggle" id="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            
+            <nav class="main-nav" id="main-nav">
+                <a href="../index.html" class="nav-link">
+                    <i class="fas fa-home me-2 d-lg-none"></i>Home
+                </a>
+                <a href="../frontend/pages/abt.Dr.html" class="nav-link active">
+                    <i class="fas fa-user-md me-2 d-lg-none"></i>Doctors
+                </a>
+                <a href="../pages/appointment.html" class="nav-link">
+                    <i class="fas fa-calendar-check me-2 d-lg-none"></i>Appointment
+                </a>
+                <a href="../pages/Login.html" class="nav-link">
+                    <i class="fas fa-notes-medical me-2 d-lg-none"></i>Patient Portal
+                </a>
+                <a href="../pages/contact.html" class="nav-link">
+                    <i class="fas fa-envelope me-2 d-lg-none"></i>Contact
+                </a>
+            </nav>
+            
+            <div class="header-actions">
+                <button class="theme-toggle" id="theme-toggle" title="Toggle Theme">
+                    <i class="fas fa-moon"></i>
+                </button>
+                
+                <a href="../pages/Login.html" class="btn btn-primary">
+                    <i class="fas fa-sign-in-alt me-2"></i>Login
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="doctors-hero">
+        <div class="container text-center position-relative">
+            <h1 class="mb-3">Meet Our Expert Doctors</h1>
+            <p class="lead">Our team of highly qualified specialists is dedicated to providing you with the best healthcare</p>
+        </div>
+    </section>
+
+    <!-- Filter Section -->
+    <section class="section" style="padding-bottom: 0; margin-top: -30px;">
+        <div class="container">
+            <div class="filter-section">
+                <div class="row align-items-center g-3">
+                    <div class="col-lg-4">
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="doctorSearch" placeholder="Search doctors by name..." oninput="filterDoctors()">
+                        </div>
+                    </div>
+                    <div class="col-lg-8">
+                        <div class="specialty-filter d-flex gap-2 flex-wrap justify-content-lg-end">
+                            <button class="btn active" onclick="filterBySpecialty('all', this)">All</button>
+                            <button class="btn" onclick="filterBySpecialty('Cardiology', this)">Cardiology</button>
+                            <button class="btn" onclick="filterBySpecialty('Orthopedic', this)">Orthopedic</button>
+                            <button class="btn" onclick="filterBySpecialty('Neurology', this)">Neurology</button>
+                            <button class="btn" onclick="filterBySpecialty('Pediatrics', this)">Pediatrics</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Doctors Grid -->
+    <section class="section">
+        <div class="container">
+            <div class="row g-4" id="doctorsGrid">
+                <!-- Doctor 1 -->
+                <div class="col-lg-4 col-md-6" data-specialty="Cardiology">
+                    <div class="doctor-card">
+                        <div class="doctor-image-container">
+                            <img src="../public/images/detailed-d-male-doctor-avatar-providing-medical-consultation-horizontal-layout-detailed-d-male-doctor-avatar-providing-352922920.webp" alt="Dr. Ibrahim Khodil">
+                            <div class="doctor-badge">
+                                <i class="fas fa-check-circle"></i> Available
+                            </div>
+                        </div>
+                        <div class="doctor-info">
+                            <h4 class="doctor-name">Dr. Ibrahim Khodil</h4>
+                            <p class="doctor-specialty">Cardiologist</p>
+                            
+                            <div class="doctor-stats">
+                                <div class="doctor-stat">
+                                    <i class="fas fa-briefcase-medical"></i>
+                                    <span>10+ Years</span>
+                                </div>
+                                <div class="doctor-stat">
+                                    <i class="fas fa-star text-warning"></i>
+                                    <span>5.0</span>
+                                </div>
+                                <div class="doctor-stat">
+                                    <i class="fas fa-user-md"></i>
+                                    <span>1000's Patients</span>
+                                </div>
+                            </div>
+                            
+                            <div class="doctor-actions">
+                                <a href="../pages/doctors/Dr.IK.appointment.html" class="btn btn-primary btn-sm flex-grow-1">
+                                    <i class="fas fas fa-user"></i> Profile
+                                </a>
+                              
+                            </div>
+                            
+                            <div class="doctor-availability">
+                                <div class="availability-title">Availability</div>
+                                <div class="availability-days">
+                                    <span class="day-badge available">M</span>
+                                    <span class="day-badge available">T</span>
+                                    <span class="day-badge available">W</span>
+                                    <span class="day-badge available">T</span>
+                                    <span class="day-badge available">F</span>
+                                    <span class="day-badge">S</span>
+                                    <span class="day-badge">S</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Doctor 2 -->
+                <div class="col-lg-4 col-md-6" data-specialty="Orthopedic">
+                    <div class="doctor-card">
+                        <div class="doctor-image-container">
+                            <img src="../public/images/female-doctor-with-hijab-3d-render-free-png.webp" alt="Dr. Sarah Johnson">
+                            <div class="doctor-badge">
+                                <i class="fas fa-check-circle"></i> Available
+                            </div>
+                        </div>
+                        <div class="doctor-info">
+                            <h4 class="doctor-name">Dr. mrs. Khodil</h4>
+                            <p class="doctor-specialty">Orthopedic Surgeon</p>
+                            
+                            <div class="doctor-stats">
+                                <div class="doctor-stat">
+                                    <i class="fas fa-briefcase-medical"></i>
+                                    <span>05+ Years</span>
+                                </div>
+                                <div class="doctor-stat">
+                                    <i class="fas fa-star text-warning"></i>
+                                    <span>4.8</span>
+                                </div>
+                                <div class="doctor-stat">
+                                    <i class="fas fa-user-md"></i>
+                                    <span>100's Patients</span>
+                                </div>
+                            </div>
+                            
+                            <div class="doctor-actions">
+                                  <a href="../pages/doctors/Dr.IK.appointment.html" class="btn btn-primary btn-sm flex-grow-1">
+                                    <i class="fas fas fa-user"></i> Profile
+                                </a>
+                               
+                            </div>
+                            
+                            <div class="doctor-availability">
+                                <div class="availability-title">Availability</div>
+                                <div class="availability-days">
+                                    <span class="day-badge available">M</span>
+                                    <span class="day-badge available">T</span>
+                                    <span class="day-badge">W</span>
+                                    <span class="day-badge available">T</span>
+                                    <span class="day-badge available">F</span>
+                                    <span class="day-badge available">S</span>
+                                    <span class="day-badge">S</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Doctor 3 -->
+                <div class="col-lg-4 col-md-6" data-specialty="Neurology">
+                    <div class="doctor-card">
+                        <div class="doctor-image-container">
+                            <img src="../public/images/cute-cartoon-3d-girl-ware-doctor-cloth-friendly-female-doctor-illustration_862994-64756.jpg.jpeg" alt="Dr. Michael Chen">
+                            <div class="doctor-badge" style="background: var(--warning);">
+                                <i class="fas fa-clock"></i> Next Available
+                            </div>
+                        </div>
+                        <div class="doctor-info">
+                            <h4 class="doctor-name">Dr. Sana Sayyed</h4>
+                            <p class="doctor-specialty">Neurologist</p>
+                            
+                            <div class="doctor-stats">
+                                <div class="doctor-stat">
+                                    <i class="fas fa-briefcase-medical"></i>
+                                    <span>10+ Years</span>
+                                </div>
+                                <div class="doctor-stat">
+                                    <i class="fas fa-star text-warning"></i>
+                                    <span>4.9</span>
+                                </div>
+                                <div class="doctor-stat">
+                                    <i class="fas fa-user-md"></i>
+                                    <span>2000+ Patients</span>
+                                </div>
+                            </div>
+                            
+                            <div class="doctor-actions">
+                                <a href="../pages/doctors/Dr.IK.appointment.html" class="btn btn-primary btn-sm flex-grow-1">
+                                    <i class="fas fas fa-user"></i> Profile
+                                </a>
+                               
+                            </div>
+                            
+                            <div class="doctor-availability">
+                                <div class="availability-title">Availability</div>
+                                <div class="availability-days">
+                                    <span class="day-badge">M</span>
+                                    <span class="day-badge available">T</span>
+                                    <span class="day-badge available">W</span>
+                                    <span class="day-badge available">T</span>
+                                    <span class="day-badge available">F</span>
+                                    <span class="day-badge available">S</span>
+                                    <span class="day-badge">S</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Doctor 4 -->
+                <div class="col-lg-4 col-md-6" data-specialty="Pediatrics">
+                    <div class="doctor-card">
+                        <div class="doctor-image-container">
+                            <img src="../public/images/d-woman-doctor-asian-female-character-simple-cartoon-fun-afro-person-stethoscope-uniform-girl-hospital-clinic-296599093.webp" alt="Dr. Priya Patel">
+                            <div class="doctor-badge">
+                                <i class="fas fa-check-circle"></i> Available
+                            </div>
+                        </div>
+                        <div class="doctor-info">
+                            <h4 class="doctor-name">Dr. Priya Patel</h4>
+                            <p class="doctor-specialty">Pediatrician</p>
+                            
+                            <div class="doctor-stats">
+                                <div class="doctor-stat">
+                                    <i class="fas fa-briefcase-medical"></i>
+                                    <span>10+ Years</span>
+                                </div>
+                                <div class="doctor-stat">
+                                    <i class="fas fa-star text-warning"></i>
+                                    <span>4.9</span>
+                                </div>
+                                <div class="doctor-stat">
+                                    <i class="fas fa-user-md"></i>
+                                    <span>2000+ Patients</span>
+                                </div>
+                            </div>
+                            
+                            <div class="doctor-actions">
+                               <a href="../pages/doctors/Dr.IK.appointment.html" class="btn btn-primary btn-sm flex-grow-1">
+                                    <i class="fas fas fa-user"></i> Profile
+                                </a>
+                             
+                            </div>
+                            
+                            <div class="doctor-availability">
+                                <div class="availability-title">Availability</div>
+                                <div class="availability-days">
+                                    <span class="day-badge available">M</span>
+                                    <span class="day-badge available">T</span>
+                                    <span class="day-badge available">W</span>
+                                    <span class="day-badge">T</span>
+                                    <span class="day-badge available">F</span>
+                                    <span class="day-badge available">S</span>
+                                    <span class="day-badge">S</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Doctor 5 -->
+                <div class="col-lg-4 col-md-6" data-specialty="Cardiology">
+                    <div class="doctor-card">
+                        <div class="doctor-image-container">
+                            <img src="../public/images/pngtree-medical-3d-character-of-a-male-doctor-for-health-industry-projects-png-image_15291621.png" alt="Dr. James Wilson">
+                            <div class="doctor-badge">
+                                <i class="fas fa-check-circle"></i> Available
+                            </div>
+                        </div>
+                        <div class="doctor-info">
+                            <h4 class="doctor-name">Dr.  Adil Rizvi</h4>
+                            <p class="doctor-specialty">Cardiologist</p>
+                            
+                            <div class="doctor-stats">
+                                <div class="doctor-stat">
+                                    <i class="fas fa-briefcase-medical"></i>
+                                    <span>10+ Years</span>
+                                </div>
+                                <div class="doctor-stat">
+                                    <i class="fas fa-star text-warning"></i>
+                                    <span>5.0</span>
+                                </div>
+                                <div class="doctor-stat">
+                                    <i class="fas fa-user-md"></i>
+                                    <span>6000+ Patients</span>
+                                </div>
+                            </div>
+                            
+                            <div class="doctor-actions">
+                                 <a href="../pages/doctors/Dr.IK.appointment.html" class="btn btn-primary btn-sm flex-grow-1">
+                                    <i class="fas fas fa-user"></i> Profile
+                                </a>
+                               
+                            </div>
+                            
+                            <div class="doctor-availability">
+                                <div class="availability-title">Availability</div>
+                                <div class="availability-days">
+                                    <span class="day-badge available">M</span>
+                                    <span class="day-badge available">T</span>
+                                    <span class="day-badge available">W</span>
+                                    <span class="day-badge available">T</span>
+                                    <span class="day-badge available">F</span>
+                                    <span class="day-badge">S</span>
+                                    <span class="day-badge">S</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Doctor 6 -->
+                <div class="col-lg-4 col-md-6" data-specialty="Orthopedic">
+                    <div class="doctor-card">
+                        <div class="doctor-image-container">
+                            <img src="../public/images/DrPic.jpg" alt="Dr. Emily Brown">
+                            <div class="doctor-badge">
+                                <i class="fas fa-check-circle"></i> Available
+                            </div>
+                        </div>
+                        <div class="doctor-info">
+                            <h4 class="doctor-name">Dr. Yash Gulati</h4>
+                            <p class="doctor-specialty">Orthopedic Surgeon</p>
+                            
+                            <div class="doctor-stats">
+                                <div class="doctor-stat">
+                                    <i class="fas fa-briefcase-medical"></i>
+                                    <span>12+ Years</span>
+                                </div>
+                                <div class="doctor-stat">
+                                    <i class="fas fa-star text-warning"></i>
+                                    <span>4.8</span>
+                                </div>
+                                <div class="doctor-stat">
+                                    <i class="fas fa-user-md"></i>
+                                    <span>2000+ Patients</span>
+                                </div>
+                            </div>
+                            
+                            <div class="doctor-actions">
+                                 <a href="../pages/doctors/Dr.IK.appointment.html" class="btn btn-primary btn-sm flex-grow-1">
+                                    <i class="fas fas fa-user"></i> Profile
+                                </a>
+                              
+                            </div>
+                            
+                            <div class="doctor-availability">
+                                <div class="availability-title">Availability</div>
+                                <div class="availability-days">
+                                    <span class="day-badge">M</span>
+                                    <span class="day-badge available">T</span>
+                                    <span class="day-badge available">W</span>
+                                    <span class="day-badge available">T</span>
+                                    <span class="day-badge available">F</span>
+                                    <span class="day-badge available">S</span>
+                                    <span class="day-badge">S</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2025 Care Connect Hospital. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/main.js"></script>
+    <script>
+        // Filter by Specialty
+        function filterBySpecialty(specialty, button) {
+            // Update active button
+            document.querySelectorAll('.specialty-filter .btn').forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+            
+            // Filter cards
+            const cards = document.querySelectorAll('#doctorsGrid > div');
+            cards.forEach(card => {
+                if (specialty === 'all' || card.dataset.specialty === specialty) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+        
+        // Search Doctors
+        function filterDoctors() {
+            const searchTerm = document.getElementById('doctorSearch').value.toLowerCase();
+            const cards = document.querySelectorAll('#doctorsGrid > div');
+            
+            cards.forEach(card => {
+                const name = card.querySelector('.doctor-name').textContent.toLowerCase();
+                if (name.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+        
+        // View Profile
+        function viewProfile(doctorName) {
+            showToast('Profile View', `Viewing profile of ${doctorName}`, 'info');
+        }
+    </script>
+</body>
+</html>

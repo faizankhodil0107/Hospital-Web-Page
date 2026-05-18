@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Care Connect Hospital</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../css/main.css">
+    
+    <style>
+        .login-page {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #0D9488 0%, #0EA5E9 50%, #0284C7 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .login-page::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23ffffff" fill-opacity="0.05"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
+        }
+        
+        .login-card {
+            background: var(--white);
+            border-radius: 1.5rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            overflow: hidden;
+            max-width: 900px;
+            width: 90%;
+            display: flex;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .login-visual {
+            flex: 1;
+            background: linear-gradient(135deg, #0D9488 0%, #0EA5E9 100%);
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .login-visual::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+        }
+        
+        .login-visual h2 {
+            color: white;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .login-visual p {
+            opacity: 0.9;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        .login-visual .features {
+            margin-top: 2rem;
+        }
+        
+        .login-visual .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .login-visual .feature-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .login-form-section {
+            flex: 1;
+            padding: 3rem;
+        }
+        
+        .login-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+        }
+        
+        .login-logo img {
+            height: 50px;
+        }
+        
+        .login-logo h3 {
+            font-size: 1.5rem;
+            background: linear-gradient(135deg, #0D9488 0%, #0EA5E9 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .login-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .login-subtitle {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+        
+        .form-floating {
+            margin-bottom: 1.25rem;
+        }
+        
+        .form-floating label {
+            color: var(--text-muted);
+        }
+        
+        .form-floating .form-control {
+            border: 2px solid var(--border-color);
+            border-radius: 0.75rem;
+            padding: 1rem;
+            height: auto;
+        }
+        
+        .form-floating .form-control:focus {
+            border-color: var(--primary-teal);
+            box-shadow: 0 0 0 4px rgba(13, 148, 136, 0.1);
+        }
+        
+        .remember-forgot {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .remember-me input {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--primary-teal);
+        }
+        
+        .forgot-password {
+            color: var(--primary-teal);
+            font-weight: 500;
+        }
+        
+        .forgot-password:hover {
+            color: var(--primary-teal-dark);
+        }
+        
+        .login-btn {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 0.75rem;
+            background: linear-gradient(135deg, #0D9488 0%, #0EA5E9 100%);
+            border: none;
+        }
+        
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(13, 148, 136, 0.3);
+        }
+        
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 1.5rem 0;
+        }
+        
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border-color);
+        }
+        
+        .divider span {
+            padding: 0 1rem;
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+        
+        .social-login {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+        
+        .social-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 0.75rem;
+            border: 2px solid var(--border-color);
+            background: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            color: var(--text-dark);
+            transition: var(--transition-base);
+            cursor: pointer;
+        }
+        
+        .social-btn:hover {
+            border-color: var(--primary-teal);
+            color: var(--primary-teal);
+            transform: translateY(-3px);
+        }
+        
+        .register-link {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: var(--text-muted);
+        }
+        
+        .register-link a {
+            color: var(--primary-teal);
+            font-weight: 600;
+        }
+        
+        .role-selector {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .role-btn {
+            flex: 1;
+            padding: 0.75rem;
+            border: 2px solid var(--border-color);
+            border-radius: 0.75rem;
+            background: var(--white);
+            cursor: pointer;
+            transition: var(--transition-base);
+            text-align: center;
+        }
+        
+        .role-btn.active {
+            border-color: var(--primary-teal);
+            background: rgba(13, 148, 136, 0.1);
+        }
+        
+        .role-btn i {
+            font-size: 1.5rem;
+            color: var(--primary-teal);
+            margin-bottom: 0.25rem;
+            display: block;
+        }
+        
+        .role-btn span {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+        
+        .theme-toggle {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            color: white;
+            cursor: pointer;
+            z-index: 10;
+            transition: var(--transition-base);
+        }
+        
+        .theme-toggle:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        @media (max-width: 768px) {
+            .login-card {
+                flex-direction: column;
+                max-width: 450px;
+            }
+            
+            .login-visual {
+                padding: 2rem;
+                text-align: center;
+            }
+            
+            .login-visual .features {
+                display: none;
+            }
+            
+            .login-form-section {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login-page">
+        <button class="theme-toggle" id="theme-toggle" title="Toggle Theme">
+            <i class="fas fa-moon"></i>
+        </button>
+        
+        <div class="login-card">
+            <div class="login-visual d-none d-md-flex">
+                <h2>Welcome to Care Connect</h2>
+                <p>Access your personalized healthcare dashboard. Manage appointments, view medical records, and connect with doctors.</p>
+                
+                <div class="features">
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <span>Secure & Private</span>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <span>24/7 Access</span>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-file-medical-alt"></i>
+                        </div>
+                        <span>Digital Records</span>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-user-md"></i>
+                        </div>
+                        <span>Expert Care</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="login-form-section">
+                <div class="login-logo">
+                    <img src="../public/images/CareConnect Logo.png" alt="Care Connect">
+                    <h3>Care Connect</h3>
+                </div>
+                
+                <h1 class="login-title">Login</h1>
+                <p class="login-subtitle">Sign in to access your account</p>
+                
+                <!-- Role Selector -->
+                <div class="role-selector">
+                    <div class="role-btn active" data-role="patient" onclick="selectRole('patient')">
+                        <i class="fas fa-user"></i>
+                        <span>Patient</span>
+                    </div>
+                    <div class="role-btn" data-role="doctor" onclick="selectRole('doctor')">
+                        <i class="fas fa-user-md"></i>
+                        <span>Doctor</span>
+                    </div>
+                    <div class="role-btn" data-role="admin" onclick="selectRole('admin')">
+                        <i class="fas fa-user-cog"></i>
+                        <span>Admin</span>
+                    </div>
+                </div>
+                
+                <form id="loginForm">
+                    <div class="form-floating">
+                        <input type="email" class="form-control" id="email" placeholder="Email Address" required>
+                        <label for="email">Email Address</label>
+                    </div>
+                    
+                    <div class="form-floating">
+                        <input type="password" class="form-control" id="password" placeholder="Password" required>
+                        <label for="password">Password</label>
+                    </div>
+                    
+                    <div class="remember-forgot">
+                        <div class="remember-me">
+                            <input type="checkbox" id="remember">
+                            <label for="remember">Remember me</label>
+                        </div>
+                        <a href="#" class="forgot-password">Forgot Password?</a>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary login-btn">
+                        <i class="fas fa-sign-in-alt me-2"></i>Sign In
+                    </button>
+                </form>
+                
+                <div class="divider">
+                    <span>or continue with</span>
+                </div>
+                
+                <div class="social-login">
+                    <button class="social-btn" title="Google">
+                        <i class="fab fa-google"></i>
+                    </button>
+                    <button class="social-btn" title="Facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </button>
+                    <button class="social-btn" title="Twitter">
+                        <i class="fab fa-twitter"></i>
+                    </button>
+                </div>
+                
+                <p class="register-link">
+                    Don't have an account? <a href="#">Register here</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/main.js"></script>
+    <script>
+        // Role Selection
+        function selectRole(role) {
+            document.querySelectorAll('.role-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`[data-role="${role}"]`).classList.add('active');
+            
+            // Update form based on role
+            const emailInput = document.getElementById('email');
+            if (role === 'admin') {
+                emailInput.placeholder = 'Admin Email';
+            } else if (role === 'doctor') {
+                emailInput.placeholder = 'Doctor Email';
+            } else {
+                emailInput.placeholder = 'Patient Email';
+            }
+        }
+        
+        // Login Form
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const role = document.querySelector('.role-btn.active').dataset.role;
+            
+            // Demo login - redirect based on role
+            if (role === 'patient') {
+                window.location.href = 'Management/Patient Management.html';
+            } else if (role === 'doctor') {
+                window.location.href = 'Management/Doctor Management.html';
+            } else {
+                window.location.href = 'Management/Dashboard.html';
+            }
+            
+            showToast('Login Successful!', `Welcome back, ${role}!`, 'success');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital Reviews - Care Connect Hospital</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../css/main.css">
+    
+    <style>
+        .reviews-hero {
+            background: linear-gradient(135deg, rgba(13, 148, 136, 0.95) 0%, rgba(14, 165, 233, 0.95) 100%);
+            padding: 5rem 0;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .reviews-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23ffffff" fill-opacity="0.05"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
+        }
+        
+        .rating-overview {
+            background: var(--white);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            box-shadow: var(--shadow-lg);
+            margin-top: -80px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .overall-rating {
+            text-align: center;
+            padding-right: 2rem;
+            border-right: 1px solid var(--border-color);
+        }
+        
+        .rating-number {
+            font-size: 4rem;
+            font-weight: 700;
+            color: var(--primary-teal);
+            line-height: 1;
+        }
+        
+        .rating-stars {
+            color: var(--warning);
+            font-size: 1.5rem;
+            margin: 0.5rem 0;
+        }
+        
+        .rating-count {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+        
+        .rating-bars {
+            padding-left: 2rem;
+        }
+        
+        .rating-bar-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .rating-bar-label {
+            width: 60px;
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+        
+        .rating-bar-track {
+            flex: 1;
+            height: 8px;
+            background: var(--light-gray);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .rating-bar-fill {
+            height: 100%;
+            background: var(--warning);
+            border-radius: 4px;
+            transition: width 1s ease-out;
+        }
+        
+        .rating-bar-value {
+            width: 40px;
+            text-align: right;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+        
+        .review-card {
+            background: var(--white);
+            border-radius: 1.25rem;
+            padding: 1.5rem;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition-base);
+            margin-bottom: 1.5rem;
+        }
+        
+        .review-card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-4px);
+        }
+        
+        .review-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .review-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-teal), var(--primary-blue));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .review-info h5 {
+            margin-bottom: 0.25rem;
+            font-weight: 600;
+        }
+        
+        .review-info .review-date {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+        
+        .review-stars {
+            color: var(--warning);
+            margin-bottom: 0.75rem;
+        }
+        
+        .review-text {
+            color: var(--text-muted);
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+        
+        .review-actions {
+            display: flex;
+            gap: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .review-action-btn {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 0.875rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition-base);
+        }
+        
+        .review-action-btn:hover {
+            color: var(--primary-teal);
+        }
+        
+        .add-review-card {
+            background: var(--white);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .add-review-card h3 {
+            margin-bottom: 1.5rem;
+        }
+        
+        .star-rating {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .star-rating i {
+            font-size: 2rem;
+            color: var(--border-color);
+            cursor: pointer;
+            transition: var(--transition-base);
+        }
+        
+        .star-rating i:hover,
+        .star-rating i.active {
+            color: var(--warning);
+        }
+        
+        .review-form .form-control {
+            border: 2px solid var(--border-color);
+            border-radius: 0.75rem;
+            padding: 0.875rem 1rem;
+        }
+        
+        .review-form .form-control:focus {
+            border-color: var(--primary-teal);
+            box-shadow: 0 0 0 4px rgba(13, 148, 136, 0.1);
+        }
+        
+        .submit-review-btn {
+            background: linear-gradient(135deg, #0D9488 0%, #0EA5E9 100%);
+            border: none;
+            padding: 1rem 2rem;
+            font-weight: 600;
+            border-radius: 0.75rem;
+            width: 100%;
+        }
+        
+        .filter-buttons {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+        
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            border: 2px solid var(--border-color);
+            border-radius: 2rem;
+            background: var(--white);
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: var(--transition-base);
+        }
+        
+        .filter-btn:hover,
+        .filter-btn.active {
+            border-color: var(--primary-teal);
+            background: var(--primary-teal);
+            color: white;
+        }
+        
+        @media (max-width: 768px) {
+            .overall-rating {
+                border-right: none;
+                padding-right: 0;
+                padding-bottom: 2rem;
+                border-bottom: 1px solid var(--border-color);
+                margin-bottom: 2rem;
+            }
+            
+            .rating-bars {
+                padding-left: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="hospital-header">
+        <div class="header-container">
+            <div class="logo-section">
+                <a href="../index.html">
+                    <img src="../public/images/CareConnect Logo.png" alt="Care Connect" class="logo-img">
+                </a>
+                <span class="logo-text">Care Connect</span>
+            </div>
+            
+            <button class="menu-toggle" id="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            
+            <nav class="main-nav" id="main-nav">
+                <a href="../pages/index.html" class="nav-link">
+                    <i class="fas fa-home me-2 d-lg-none"></i>Home
+                </a>
+                <a href="../pages/abt.Dr.html" class="nav-link">
+                    <i class="fas fa-user-md me-2 d-lg-none"></i>Doctors
+                </a>
+                <a href="../pages/appointment.html" class="nav-link">
+                    <i class="fas fa-calendar-check me-2 d-lg-none"></i>Appointment
+                </a>
+                <a href="../pages/Login.html" class="nav-link">
+                    <i class="fas fa-notes-medical me-2 d-lg-none"></i>Patient Portal
+                </a>
+                <a href="../pages/contact.html" class="nav-link">
+                    <i class="fas fa-envelope me-2 d-lg-none"></i>Contact
+                </a>
+            </nav>
+            
+            <div class="header-actions">
+                <button class="theme-toggle" id="theme-toggle" title="Toggle Theme">
+                    <i class="fas fa-moon"></i>
+                </button>
+                
+                <a href="../pages/Login.html" class="btn btn-primary">
+                    <i class="fas fa-sign-in-alt me-2"></i>Login
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="reviews-hero">
+        <div class="container text-center position-relative">
+            <h1 class="mb-3">Patient Reviews</h1>
+            <p class="lead">See what our patients say about their experience with us</p>
+        </div>
+    </section>
+
+    <!-- Rating Overview -->
+    <section class="section" style="padding-top: 0;">
+        <div class="container">
+            <div class="rating-overview">
+                <div class="row align-items-center">
+                    <div class="col-md-4">
+                        <div class="overall-rating">
+                            <div class="rating-number">4.9</div>
+                            <div class="rating-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <div class="rating-count">Based on 250 reviews</div>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="rating-bars">
+                            <div class="rating-bar-item">
+                                <span class="rating-bar-label">5 Star</span>
+                                <div class="rating-bar-track">
+                                    <div class="rating-bar-fill" style="width: 85%;"></div>
+                                </div>
+                                <span class="rating-bar-value">85%</span>
+                            </div>
+                            <div class="rating-bar-item">
+                                <span class="rating-bar-label">4 Star</span>
+                                <div class="rating-bar-track">
+                                    <div class="rating-bar-fill" style="width: 10%;"></div>
+                                </div>
+                                <span class="rating-bar-value">10%</span>
+                            </div>
+                            <div class="rating-bar-item">
+                                <span class="rating-bar-label">3 Star</span>
+                                <div class="rating-bar-track">
+                                    <div class="rating-bar-fill" style="width: 3%;"></div>
+                                </div>
+                                <span class="rating-bar-value">3%</span>
+                            </div>
+                            <div class="rating-bar-item">
+                                <span class="rating-bar-label">2 Star</span>
+                                <div class="rating-bar-track">
+                                    <div class="rating-bar-fill" style="width: 1%;"></div>
+                                </div>
+                                <span class="rating-bar-value">1%</span>
+                            </div>
+                            <div class="rating-bar-item">
+                                <span class="rating-bar-label">1 Star</span>
+                                <div class="rating-bar-track">
+                                    <div class="rating-bar-fill" style="width: 1%;"></div>
+                                </div>
+                                <span class="rating-bar-value">1%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section class="section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <!-- Filter Buttons -->
+                    <div class="filter-buttons">
+                        <button class="filter-btn active">All Reviews</button>
+                        <button class="filter-btn">5 Star</button>
+                        <button class="filter-btn">4 Star</button>
+                        <button class="filter-btn">3 Star</button>
+                        <button class="filter-btn">Recent</button>
+                    </div>
+                    
+                    <!-- Review 1 -->
+                    <div class="review-card">
+                        <div class="review-header">
+                            <div class="review-avatar">RK</div>
+                            <div class="review-info">
+                                <h5>Rohit Kumar</h5>
+                                <span class="review-date">January 15, 2025</span>
+                            </div>
+                        </div>
+                        <div class="review-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="review-text">Excellent service! The doctors are very friendly and helpful. I highly recommend Care Connect Hospital for anyone seeking quality healthcare. The facilities are top-notch and the staff is very professional.</p>
+                        <div class="review-actions">
+                            <button class="review-action-btn">
+                                <i class="far fa-thumbs-up"></i> Helpful (24)
+                            </button>
+                            <button class="review-action-btn">
+                                <i class="far fa-comment"></i> Reply
+                            </button>
+                            <button class="review-action-btn">
+                                <i class="fas fa-share"></i> Share
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Review 2 -->
+                    <div class="review-card">
+                        <div class="review-header">
+                            <div class="review-avatar">PS</div>
+                            <div class="review-info">
+                                <h5>Priya Sharma</h5>
+                                <span class="review-date">January 10, 2025</span>
+                            </div>
+                        </div>
+                        <div class="review-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="review-text">Clean environment and fast appointment process. Amazing experience overall. The hospital maintains high standards of hygiene and the doctors take their time to explain everything thoroughly.</p>
+                        <div class="review-actions">
+                            <button class="review-action-btn">
+                                <i class="far fa-thumbs-up"></i> Helpful (18)
+                            </button>
+                            <button class="review-action-btn">
+                                <i class="far fa-comment"></i> Reply
+                            </button>
+                            <button class="review-action-btn">
+                                <i class="fas fa-share"></i> Share
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Review 3 -->
+                    <div class="review-card">
+                        <div class="review-header">
+                            <div class="review-avatar">AV</div>
+                            <div class="review-info">
+                                <h5>Amit Verma</h5>
+                                <span class="review-date">January 5, 2025</span>
+                            </div>
+                        </div>
+                        <div class="review-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <p class="review-text">Staff is very supportive. The best hospital management system I've seen. Appointments are easy to book and the follow-up care is excellent. Would definitely recommend to family and friends.</p>
+                        <div class="review-actions">
+                            <button class="review-action-btn">
+                                <i class="far fa-thumbs-up"></i> Helpful (32)
+                            </button>
+                            <button class="review-action-btn">
+                                <i class="far fa-comment"></i> Reply
+                            </button>
+                            <button class="review-action-btn">
+                                <i class="fas fa-share"></i> Share
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Review 4 -->
+                    <div class="review-card">
+                        <div class="review-header">
+                            <div class="review-avatar">SM</div>
+                            <div class="review-info">
+                                <h5>Suresh Menon</h5>
+                                <span class="review-date">December 28, 2024</span>
+                            </div>
+                        </div>
+                        <div class="review-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="review-text">Had a wonderful experience with my cardiac checkup. The doctor was very patient and explained everything in detail. The entire process was smooth and efficient.</p>
+                        <div class="review-actions">
+                            <button class="review-action-btn">
+                                <i class="far fa-thumbs-up"></i> Helpful (15)
+                            </button>
+                            <button class="review-action-btn">
+                                <i class="far fa-comment"></i> Reply
+                            </button>
+                            <button class="review-action-btn">
+                                <i class="fas fa-share"></i> Share
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Add Review -->
+                <div class="col-lg-4">
+                    <div class="add-review-card">
+                        <h3><i class="fas fa-pen me-2"></i>Write a Review</h3>
+                        
+                        <form class="review-form" id="reviewForm">
+                            <label class="form-label">Your Rating</label>
+                            <div class="star-rating" id="starRating">
+                                <i class="fas fa-star" data-rating="1"></i>
+                                <i class="fas fa-star" data-rating="2"></i>
+                                <i class="fas fa-star" data-rating="3"></i>
+                                <i class="fas fa-star" data-rating="4"></i>
+                                <i class="fas fa-star" data-rating="5"></i>
+                            </div>
+                            <input type="hidden" id="selectedRating" value="0">
+                            
+                            <div class="mb-3">
+                                <label class="form-label">Your Name</label>
+                                <input type="text" class="form-control" id="reviewerName" required>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label class="form-label">Your Review</label>
+                                <textarea class="form-control" id="reviewText" rows="4" required></textarea>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary submit-review-btn">
+                                <i class="fas fa-paper-plane me-2"></i>Submit Review
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2025 Care Connect Hospital. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/main.js"></script>
+    <script>
+        // Star Rating
+        const stars = document.querySelectorAll('#starRating i');
+        let selectedRating = 0;
+        
+        stars.forEach(star => {
+            star.addEventListener('click', () => {
+                selectedRating = parseInt(star.dataset.rating);
+                document.getElementById('selectedRating').value = selectedRating;
+                updateStars(selectedRating);
+            });
+            
+            star.addEventListener('mouseover', () => {
+                const rating = parseInt(star.dataset.rating);
+                updateStars(rating);
+            });
+        });
+        
+        document.getElementById('starRating').addEventListener('mouseleave', () => {
+            updateStars(selectedRating);
+        });
+        
+        function updateStars(rating) {
+            stars.forEach((star, index) => {
+                if (index < rating) {
+                    star.classList.add('active');
+                    star.style.color = '#F59E0B';
+                } else {
+                    star.classList.remove('active');
+                    star.style.color = '#E5E7EB';
+                }
+            });
+        }
+        
+        // Review Form
+        document.getElementById('reviewForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            if (selectedRating === 0) {
+                showToast('Please select a rating', 'Click on the stars to rate', 'warning');
+                return;
+            }
+            
+            const name = document.getElementById('reviewerName').value;
+            const review = document.getElementById('reviewText').value;
+            
+            showToast('Review Submitted!', `Thank you ${name} for your feedback!`, 'success');
+            
+            // Reset form
+            this.reset();
+            selectedRating = 0;
+            updateStars(0);
+        });
+        
+        // Filter Buttons
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>

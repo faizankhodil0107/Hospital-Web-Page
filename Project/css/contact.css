@@ -1,0 +1,241 @@
+/* --- Color Variables --- */
+:root {
+    --primary-blue: #007bff; /* A standard, professional blue */
+    --light-blue: #e9f5ff; /* Very light blue for backgrounds */
+    --dark-text: #333;
+    --light-text: #fff;
+    --border-color: #ddd;
+    --shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* --- Base Styles --- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif; /* Use a common, readable font */
+}
+
+body {
+    background-color: var(--light-blue); /* Light blue background for the page */
+    color: var(--dark-text);
+    line-height: 1.6;
+}
+#navbar{
+      top: 0;
+    position:sticky;
+    background: #023e8a;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    flex-wrap: wrap;
+
+}
+header {
+    background: #0494e1c6;
+    color: white;
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 25px;
+    padding-right: 25px;
+
+}
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 15px;
+    font-weight: bold;
+    transition-duration: .3s;
+}
+
+nav a:hover {
+    text-decoration: underline;
+      scale: 1.1;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+/* --- Section Header --- */
+.contact-section h1 {
+    color: var(--primary-blue);
+    font-size: 2.5em;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.contact-section .subtitle {
+    text-align: center;
+    font-size: 1.1em;
+    margin-bottom: 40px;
+    color: #666;
+}
+
+/* --- Main Content Layout (Flexbox for Responsiveness) --- */
+.contact-content {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 50px;
+}
+
+/* --- Contact Information Card --- */
+.contact-info {
+    flex: 1; /* Takes up one part of the space */
+    background: var(--primary-blue);
+    color: var(--light-text);
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+}
+
+.contact-info h2 {
+    font-size: 1.8em;
+    margin-bottom: 25px;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+    padding-bottom: 15px;
+}
+
+.info-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+.info-item i {
+    font-size: 1.4em;
+    margin-right: 15px;
+    color: var(--light-text); /* Icons are white */
+    padding-top: 2px;
+}
+
+.info-item p {
+    margin: 0;
+    font-size: 1.05em;
+}
+
+.info-item strong {
+    font-weight: bold;
+}
+
+/* --- Contact Form Styles --- */
+.contact-form {
+    flex: 2; /* Takes up two parts of the space (wider than info card) */
+    background: var(--light-text);
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+}
+
+.contact-form h2 {
+    color: var(--primary-blue);
+    font-size: 1.8em;
+    margin-bottom: 25px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: var(--dark-text);
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 1em;
+    transition: border-color 0.3s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: var(--primary-blue);
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.submit-btn {
+    display: inline-block;
+    padding: 12px 25px;
+    background-color: var(--primary-blue);
+    color: var(--light-text);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: bold;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.submit-btn:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+    transform: translateY(-2px);
+}
+
+/* --- Map Container --- */
+.map-container {
+    background: var(--light-text);
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    text-align: center;
+}
+
+.map-container h2 {
+    color: var(--primary-blue);
+    font-size: 1.8em;
+    margin-bottom: 20px;
+}
+
+.map-container iframe {
+    width: 100%;
+    height: 400px;
+    border: 0;
+    border-radius: 4px;
+}
+
+/* --- Responsiveness (Media Queries) --- */
+@media (max-width: 900px) {
+    .contact-content {
+        flex-direction: column; /* Stacks the content vertically on smaller screens */
+    }
+
+    .contact-info,
+    .contact-form {
+        flex: 1 1 100%; /* Makes both sections take full width */
+        max-width: 100%;
+    }
+
+    .contact-info {
+        order: 2; /* Puts the info card below the form for better flow on mobile */
+    }
+
+    .contact-form {
+        order: 1; /* Puts the form first on mobile */
+    }
+}
+
+@media (max-width: 500px) {
+    .contact-section h1 {
+        font-size: 2em;
+    }
+
+    .contact-info,
+    .contact-form,
+    .map-container {
+        padding: 20px;
+    }
+}

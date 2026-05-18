@@ -1,0 +1,210 @@
+/* 🌐 General Styles */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f4f8fb;
+    color: #333;
+}
+
+#navbar{
+      top: 0;
+    position:sticky;
+    background: #023e8a;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+
+}
+header {
+    background: #0494e1c6;
+    color: white;
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 10px;
+    padding-right: 25px;
+
+}
+
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 15px;
+    font-weight: bold;
+    transition-duration: .3s;
+}
+
+nav a:hover {
+    text-decoration: underline;
+     scale: 1.1;
+}
+.hamberger{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+    display: none;
+    
+}
+.bar{
+    width: 30px;
+    height: 5px;
+    background-color: #ffffff;
+    margin: 3px;
+}
+.container {
+    width: 90%;
+    margin: auto;
+    padding: 20px;
+}
+
+h1,
+h2 {
+
+    color: #023e8a;
+}
+
+
+#himg{
+    grid-template-columns: auto auto auto;
+    
+    border-radius: 20px;
+
+}
+/* 🧑‍⚕️ Doctors Section */
+.doctors {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.doctor-card {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    
+    
+}
+
+.doctor-card img {
+    width: 100%; 
+}
+#name{
+    transition: ease-in;
+    transition-duration: .5s;
+}
+#name:hover{
+    cursor: pointer;
+    color: #006eff;
+}
+
+.doctor-card button {
+    margin-top: 10px;
+    padding: 8px 12px;
+    background: #0077b6;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.doctor-card button:hover {
+    background: #0096c7;
+}
+
+/* 📅 Appointment Form */
+form {
+    background: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    margin: auto;
+}
+
+input,
+textarea {
+    width: 95%;
+    padding: 10px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    box-shadow: inset 2px 2px 7px black;
+    border-radius: 5px;
+}
+input:hover{
+box-shadow: none;  
+transition-duration: .5s;
+}
+
+select{
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    box-shadow: inset 2px 2px 7px black;
+    border-radius: 5px;
+}
+select:hover{
+box-shadow: none;  
+transition-duration: .5s;
+}
+
+#button {
+    padding: 15px 25px;
+    background: #0077b6;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: ease-in;
+    transition: .5s;
+}
+
+button:hover {
+    background: #0096c7;
+}
+
+#submitbtn{
+}
+
+.footer {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    background-color: #1436f8c8;
+    padding: 15px;
+}
+#contact{
+    padding: 20px;
+    border-radius: 10px;
+    backdrop-filter: blur;
+    border: 1px solid white;
+}
+
+#contact:hover{
+    background-color: #ffffff;
+    transition: .5s;
+}
+
+/* --- Responsiveness (Media Queries) --- */
+@media (max-width: 600px) {
+    #navbar {
+        flex-direction: column; /* Stacks the content vertically on smaller screens */
+        
+    }
+    .nav-link:hover{
+        scale: none;
+    }
+    #logo{
+        
+    }
+    .hamberger{
+    
+    }
+}

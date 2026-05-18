@@ -1,0 +1,235 @@
+
+        /* Reset */
+        body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f4f8fb;
+    color: #333;
+}
+        /* Header */
+       #navbar{
+      top: 0;
+    position:sticky;
+    background: #023e8a;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+
+}
+header {
+    background: #0494e1c6;
+    color: rgb(36, 57, 149);
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 25px;
+    padding-right: 25px;
+
+}
+
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 15px;
+    font-weight: bold;
+    transition-duration: .3s;
+}
+
+nav a:hover {
+    text-decoration: underline;
+      scale: 1.1;
+}
+        /* Hero */
+        .hero {
+            padding: 60px 40px;
+            text-align: center;
+            background: #ffffff;
+        }
+        .hero h1 {
+            font-size: 42px;
+            color: #003B80;
+        }
+        .hero p {
+            margin-top: 15px;
+            font-size: 20px;
+            color: #555;
+        }
+
+        /* Reviews Section */
+        .reviews {
+            margin: 40px auto;
+            width: 90%;
+            max-width: 900px;
+        }
+        .reviews h2 {
+            font-size: 32px;
+            color: #003B80;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .review-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0px 4px 12px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease;
+        }
+        .review-card:hover {
+            transform: translateY(-5px);
+        }
+        .review-card h3 { color: #003B80; margin-bottom: 5px; }
+        .review-card p { margin-top: 5px; font-style: italic; color: #444; }
+        .stars { color: #ffb400; font-size: 18px; margin-bottom: 8px; }
+
+        /* --- Add Review Form --- */
+        #add-review {
+            text-align: center; /* Center the "Add Review" button */
+        }
+        .review-form {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 12px rgba(0,0,0,0.08);
+            text-align: left; /* Reset text-align for form fields */
+            display: none; /* Hidden by default */
+        }
+        #review-form-title {
+            display: none; /* Hidden by default */
+        }
+        .review-form label {
+            font-weight: bold;
+            color: #003B80;
+            margin-top: 10px;
+            display: block;
+        }
+        .review-form input[type="text"],
+        .review-form select,
+        .review-form textarea {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+            font-family: inherit;
+        }
+        
+        /* Button Styles */
+        .btn {
+            padding: 12px 25px; 
+            border:none; 
+            border-radius:8px; 
+            font-size:18px; 
+            cursor:pointer;
+            transition: background-color 0.3s ease, opacity 0.3s ease;
+            font-weight: bold;
+        }
+        .btn-primary {
+            background:#003B80; 
+            color:white; 
+        }
+        .btn-primary:hover {
+            background: #0056b3;
+        }
+        .btn-secondary {
+            background: #e0e0e0;
+            color: #333;
+        }
+        .btn-secondary:hover {
+            background: #c7c7c7;
+        }
+        .form-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            justify-content: flex-end;
+        }
+
+        /* --- Popup Modal --- */
+        .popup-overlay {
+            display: none; /* Hidden by default */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+        .popup-content {
+            background: white;
+            padding: 30px 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            z-index: 2001;
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            /* Animation */
+            transform: scale(0.9);
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+        .popup-overlay.show .popup-content {
+             transform: scale(1);
+             opacity: 1;
+        }
+        .popup-content h3 {
+            color: #003B80;
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+        .popup-content p {
+            margin-bottom: 25px;
+            font-size: 18px;
+            color: #555;
+        }
+
+
+        /* Footer */
+        footer {
+            background: #003B80;
+            padding: 30px 20px;
+            text-align: center;
+            color: white;
+            margin-top: 40px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                height: auto;
+                padding: 20px;
+            }
+            .logo-text {
+                margin-bottom: 10px;
+            }
+            .nav-items {
+                gap: 15px;
+                padding: 0 10px;
+            }
+            .nav-items a {
+                font-size: 16px;
+            }
+            .hero h1 {
+                font-size: 32px;
+            }
+            .hero p {
+                font-size: 18px;
+            }
+            .form-buttons {
+                flex-direction: column;
+            }
+            .btn {
+                width: 100%;
+            }
+        }
+  

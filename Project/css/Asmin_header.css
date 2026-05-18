@@ -1,0 +1,135 @@
+
+      :root {
+            --sidebar-width: 280px;
+            --sidebar-collapsed: 80px;
+            --header-height: 70px;
+        }
+        
+        [data-theme="dark"] {
+            --bg-dark: #1F2937;
+            --bg-card: #111827;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #F0F9FF;
+        }
+        
+        [data-theme="dark"] body {
+            background: #111827;
+        }
+     
+     /* Header */
+       .admin-header {
+    /* Existing properties... */
+    margin-left: var(--sidebar-width); /* Push the header to the right */
+    width: calc(100% - var(--sidebar-width)); /* Ensure it doesn't overflow the screen */
+    transition: margin-left 0.3s ease, width 0.3s ease; /* For smooth transitions if sidebar collapses */
+}
+        
+        [data-theme="dark"] .admin-header {
+            background: #1F2937;
+        }
+        
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .page-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #1F2937;
+        }
+        
+        [data-theme="dark"] .page-title {
+            color: white;
+        }
+        
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .header-icon-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            border: none;
+            background: #F3F4F6;
+            color: #6B7280;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        [data-theme="dark"] .header-icon-btn {
+            background: #374151;
+            color: #D1D5DB;
+        }
+        
+        .header-icon-btn:hover {
+            background: #0D9488;
+            color: white;
+        }
+        
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            width: 18px;
+            height: 18px;
+            background: #EF4444;
+            color: white;
+            border-radius: 50%;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .admin-profile {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.5rem 1rem;
+            background: #F3F4F6;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        
+        [data-theme="dark"] .admin-profile {
+            background: #374151;
+        }
+        
+        .admin-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #0D9488, #0EA5E9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+        
+        .admin-info h4 {
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin: 0;
+        }
+        
+        .admin-info span {
+            font-size: 0.75rem;
+            color: #6B7280;
+        }
+

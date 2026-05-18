@@ -1,0 +1,131 @@
+/* 🌐 General Styles */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f4f8fb;
+    color: #333;
+}
+
+#navbar{
+    top: 0;
+    position:sticky;
+    background: #023e8a;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+   
+}
+header {
+    padding-right: 25px;
+    padding-left: 25px;
+    background: #0494e1c6;
+    color: white;
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content:space-between;
+
+}
+
+nav {
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 15px;
+    font-weight: bold;
+    transition-duration: .3s;
+}
+
+nav a:hover {
+    text-decoration: underline;
+    scale: 1.1;
+}
+
+.container {
+    width: 90%;
+    margin: auto;
+    padding: 20px;
+}
+
+#Drinfo{
+ display: flex;
+ flex-wrap: wrap;
+ align-items: center;
+ justify-content: center;
+ padding: 25px;
+}
+#Card{
+    background-color: rgba(158, 156, 152, 0.549);
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+}
+
+
+#pic{
+    width:;
+}
+#Drdetail{
+   
+}
+button {
+    font-size: larger;
+    padding: 15px 25px;
+    background: #0077b6;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: ease-in;
+    transition: .5s;
+
+}
+
+button:hover {
+    background: #0096c7;
+}
+#infobar{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    text-align: center;
+    row-gap: 30px;
+    padding: 20px;
+}
+#exp{
+    border: 1px solid blue;
+    padding: 30px;
+    border-radius: 50%;
+}
+
+#exp:hover{
+    cursor: pointer;
+}
+
+
+.footer {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    background-color: #1436f8c8;
+    padding: 15px;
+ 
+    
+}
+#contact{
+    
+    padding: 20px;
+    border-radius: 10px;
+    backdrop-filter: blur;
+    border: 1px solid white;
+}
+
+@media(max-width:680px){
+    #navbar{
+        flex-direction: column;
+    }
+}
+

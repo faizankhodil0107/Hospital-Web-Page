@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Care Connect Hospital</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../css/main.css">
+
+    <link rel="stylesheet" href="../../css/Admin_Sidebar.css">
+    
+    <style>
+        :root {
+            --sidebar-width: 230px;
+            --sidebar-collapsed: 80px;
+            --header-height: 70px;
+        }
+        
+        [data-theme="dark"] {
+            --bg-dark: #1F2937;
+            --bg-card: #111827;
+        }
+        
+        body {
+                    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #F0F9FF;
+        }
+        
+        [data-theme="dark"] body {
+            background: #111827;
+        }
+        
+    
+        
+        /* Main Content */
+        .main-wrapper {
+            margin-left: var(--sidebar-width);
+            transition: all 0.3s ease;
+        }
+        
+        .main-wrapper.expanded {
+            margin-left: var(--sidebar-collapsed);
+        }
+        
+        /* Header */
+        .admin-header {
+            background: white;
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        [data-theme="dark"] .admin-header {
+            background: #1F2937;
+        }
+        
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .page-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #1F2937;
+        }
+        
+        [data-theme="dark"] .page-title {
+            color: white;
+        }
+        
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .header-icon-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            border: none;
+            background: #F3F4F6;
+            color: #6B7280;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        [data-theme="dark"] .header-icon-btn {
+            background: #374151;
+            color: #D1D5DB;
+        }
+        
+        .header-icon-btn:hover {
+            background: #0D9488;
+            color: white;
+        }
+        
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            width: 18px;
+            height: 18px;
+            background: #EF4444;
+            color: white;
+            border-radius: 50%;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .admin-profile {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.5rem 1rem;
+            background: #F3F4F6;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        
+        [data-theme="dark"] .admin-profile {
+            background: #374151;
+        }
+        
+        .admin-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #0D9488, #0EA5E9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+        
+        .admin-info h4 {
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin: 0;
+        }
+        
+        .admin-info span {
+            font-size: 0.75rem;
+            color: #6B7280;
+        }
+        
+        /* Dashboard Content */
+        .dashboard-content {
+            padding: 2rem;
+        }
+        
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stat-card {
+            background: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+        
+        [data-theme="dark"] .stat-card {
+            background: #1F2937;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        
+        .stat-icon.primary {
+            background: rgba(13, 148, 136, 0.1);
+            color: #0D9488;
+        }
+        
+        .stat-icon.blue {
+            background: rgba(14, 165, 233, 0.1);
+            color: #0EA5E9;
+        }
+        
+        .stat-icon.orange {
+            background: rgba(245, 158, 11, 0.1);
+            color: #F59E0B;
+        }
+        
+        .stat-icon.red {
+            background: rgba(239, 68, 68, 0.1);
+            color: #EF4444;
+        }
+        
+        .stat-info h3 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin: 0;
+            line-height: 1;
+        }
+        
+        .stat-info p {
+            font-size: 0.875rem;
+            color: #6B7280;
+            margin: 0.5rem 0 0;
+        }
+        
+        .stat-change {
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        .stat-change.up {
+            color: #10B981;
+        }
+        
+        .stat-change.down {
+            color: #EF4444;
+        }
+        
+        /* Charts Grid */
+        .charts-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .chart-card {
+            background: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        [data-theme="dark"] .chart-card {
+            background: #1F2937;
+        }
+        
+        .chart-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+        }
+        
+        .chart-header h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin: 0;
+        }
+        
+        .chart-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .chart-btn {
+            padding: 0.5rem 1rem;
+            border: 1px solid #E5E7EB;
+            border-radius: 0.5rem;
+            background: white;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        [data-theme="dark"] .chart-btn {
+            background: #374151;
+            border-color: #4B5563;
+            color: #D1D5DB;
+        }
+        
+        .chart-btn.active {
+            background: #0D9488;
+            border-color: #0D9488;
+            color: white;
+        }
+        
+        /* Tables */
+        .table-card {
+            background: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        [data-theme="dark"] .table-card {
+            background: #1F2937;
+        }
+        
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .data-table th {
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.875rem;
+            color: #6B7280;
+            border-bottom: 2px solid #E5E7EB;
+        }
+        
+        [data-theme="dark"] .data-table th {
+            border-color: #374151;
+        }
+        
+        .data-table td {
+            padding: 1rem;
+            font-size: 0.875rem;
+            border-bottom: 1px solid #E5E7EB;
+        }
+        
+        [data-theme="dark"] .data-table td {
+            border-color: #374151;
+        }
+        
+        .data-table tbody tr:hover {
+            background: #F9FAFB;
+        }
+        
+        [data-theme="dark"] .data-table tbody tr:hover {
+            background: #374151;
+        }
+        
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        .status-badge.success {
+            background: rgba(16, 185, 129, 0.1);
+            color: #10B981;
+        }
+        
+        .status-badge.warning {
+            background: rgba(245, 158, 11, 0.1);
+            color: #F59E0B;
+        }
+        
+        .status-badge.danger {
+            background: rgba(239, 68, 68, 0.1);
+            color: #EF4444;
+        }
+        
+        .action-btns {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .action-btn {
+            width: 32px;
+            height: 32px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .action-btn.view {
+            background: rgba(14, 165, 233, 0.1);
+            color: #0EA5E9;
+        }
+        
+        .action-btn.edit {
+            background: rgba(245, 158, 11, 0.1);
+            color: #F59E0B;
+        }
+        
+        .action-btn.delete {
+            background: rgba(239, 68, 68, 0.1);
+            color: #EF4444;
+        }
+        
+        .action-btn:hover {
+            transform: scale(1.1);
+        }
+        
+        /* Quick Actions */
+        .quick-actions-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+        }
+        
+        .quick-action {
+            background: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        [data-theme="dark"] .quick-action {
+            background: #1F2937;
+        }
+        
+        .quick-action:hover {
+            border-color: #0D9488;
+            transform: translateY(-3px);
+        }
+        
+        .quick-action i {
+            font-size: 2rem;
+            color: #0D9488;
+            margin-bottom: 0.75rem;
+        }
+        
+        .quick-action h4 {
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin: 0;
+        }
+        
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .admin-sidebar {
+                width: var(--sidebar-collapsed);
+            }
+            
+            .admin-sidebar .sidebar-logo h3,
+            .admin-sidebar .sidebar-nav span {
+                display: none;
+            }
+            
+            .main-wrapper {
+                margin-left: var(--sidebar-collapsed);
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .quick-actions-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .admin-info {
+                display: none;
+            }
+        }
+        
+        /* Theme Toggle */
+        .theme-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            border: none;
+            background: #F3F4F6;
+            color: #6B7280;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .theme-btn:hover {
+            background: #0D9488;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Sidebar -->
+       <aside class="admin-sidebar" id="sidebar">
+        <a href="../../index.html">
+        <div class="sidebar-logo">
+            <img src="../../public/images/CareConnect Logo.png" alt="Care Connect">
+            <h3 style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Care Connect</h3>
+        </div></a>
+        
+        <ul class="sidebar-nav">
+            <li>
+                <a href="../Management/Dashboard.html" class="active">
+                    <i class="fas fa-th-large bg-dark "></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a href="../Management/Patient Management.html">
+                    <i class="fas fa-user-injured"></i>
+                    <span>Patients</span>
+                </a>
+            </li>
+            <li>
+                <a href="../Management/Doctor Management.html">
+                    <i class="fas fa-user-md"></i>
+                    <span>Doctors</span>
+                </a>
+            </li>
+            <li>
+                <a href="../Management/Pharmacy.html">
+                    <i class="fas fa-prescription-bottle"></i>
+                    <span>Pharmacy</span>
+                </a>
+            </li>
+            <li>
+                <a href="../Management/Room & bed Management.html">
+                    <i class="fas fa-bed"></i>
+                    <span>Rooms</span>
+                </a>
+            </li>
+            <li>
+                <a href="">
+                    <i class="fas fa-calendar-check"></i>
+                    <span>Appointments</span>
+                </a>
+            </li>
+        
+        </ul>
+        
+        <button class="sidebar-toggle" onclick="toggleSidebar()">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="main-wrapper" id="mainContent">
+        <!-- Header -->
+        <header class="admin-header">
+            <div class="header-left">
+                <h1 class="page-title">Dashboard</h1>
+            </div>
+            
+            <div class="header-right">
+                <div class="header-actions">
+                    <button class="header-icon-btn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                    <button class="header-icon-btn">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">3</span>
+                    </button>
+                    <button class="theme-btn" onclick="toggleTheme()">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </div>
+                
+                <div class="admin-profile">
+                    <div class="admin-avatar">A</div>
+                    <div class="admin-info">
+                        <h4>Admin User</h4>
+                        <span>Administrator</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Dashboard Content -->
+        <div class="dashboard-content">
+            <!-- Stats -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon primary">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>1,245</h3>
+                        <p>Total Patients</p>
+                        <span class="stat-change up"><i class="fas fa-arrow-up"></i> 12% this month</span>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon blue">
+                        <i class="fas fa-user-md"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>6</h3>
+                        <p>Active Doctors</p>
+                        <span class="stat-change up"><i class="fas fa-arrow-up"></i> 5% this month</span>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon orange">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>2</h3>
+                        <p>Today's Appointments</p>
+                        <span class="stat-change up"><i class="fas fa-arrow-up"></i> 8% this week</span>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon red">
+                        <i class="fas fa-rupee-sign"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>₹2.4L</h3>
+                        <p>Today's Revenue</p>
+                        <span class="stat-change down"><i class="fas fa-arrow-down"></i> 3% this month</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts -->
+            <div class="charts-grid">
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>Patient Trends</h3>
+                        <div class="chart-actions">
+                            <button class="chart-btn active">Weekly</button>
+                            <button class="chart-btn">Monthly</button>
+                            <button class="chart-btn">Yearly</button>
+                        </div>
+                    </div>
+                    <canvas id="patientChart" height="100"></canvas>
+                </div>
+                
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>Department Distribution</h3>
+                    </div>
+                    <canvas id="departmentChart" height="200"></canvas>
+                </div>
+            </div>
+
+            <!-- Recent Patients & Quick Actions -->
+            <div class="row g-4">
+                <div class="col-lg-8">
+                    <div class="table-card">
+                        <div class="chart-header">
+                            <h3>Recent Patients</h3>
+                            <a href="Patient Management.html" class="btn btn-sm btn-outline">View All</a>
+                        </div>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>MRN</th>
+                                    <th>Patient Name</th>
+                                    <th>Department</th>
+                                    <th>Status</th>
+                                    <th>Date</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>CC20250001</td>
+                                    <td>Alia Khan</td>
+                                    <td>Cardiology</td>
+                                    <td><span class="status-badge success">Admitted</span></td>
+                                    <td>Jan 15, 2025</td>
+                                    <td>
+                                        <div class="action-btns">
+                                            <button class="action-btn view"><i class="fas fa-eye"></i></button>
+                                            <button class="action-btn edit"><i class="fas fa-edit"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>CC20250002</td>
+                                    <td>Ravi Sharma</td>
+                                    <td>Orthopedics</td>
+                                    <td><span class="status-badge warning">OP</span></td>
+                                    <td>Jan 15, 2025</td>
+                                    <td>
+                                        <div class="action-btns">
+                                            <button class="action-btn view"><i class="fas fa-eye"></i></button>
+                                            <button class="action-btn edit"><i class="fas fa-edit"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>CC20250003</td>
+                                    <td>Priya Singh</td>
+                                    <td>Neurology</td>
+                                    <td><span class="status-badge success">Admitted</span></td>
+                                    <td>Jan 14, 2025</td>
+                                    <td>
+                                        <div class="action-btns">
+                                            <button class="action-btn view"><i class="fas fa-eye"></i></button>
+                                            <button class="action-btn edit"><i class="fas fa-edit"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>CC20250004</td>
+                                    <td>Mohammed Ali</td>
+                                    <td>General</td>
+                                    <td><span class="status-badge danger">Discharged</span></td>
+                                    <td>Jan 14, 2025</td>
+                                    <td>
+                                        <div class="action-btns">
+                                            <button class="action-btn view"><i class="fas fa-eye"></i></button>
+                                            <button class="action-btn edit"><i class="fas fa-edit"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4">
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3>Quick Actions</h3>
+                        </div>
+                        <div class="quick-actions-grid" style="grid-template-columns: 1fr 1fr;">
+                            <a href="../Management/Patient Management.html" class="quick-action">
+                                <i class="fas fa-user-plus"></i>
+                                <h4>Add Patient</h4>
+                            </a>
+                            <a href="../Management/Appointment Management.html" class="quick-action">
+                                <i class="fas fa-calendar-plus"></i>
+                                <h4>New Appointment</h4>
+                            </a>
+                            <a href="../Management/Pharmacy.html" class="quick-action">
+                                <i class="fas fa-pills"></i>
+                                <h4>Add Medicine</h4>
+                            </a>
+                            <a href="#" class="quick-action">
+                                <i class="fas fa-file-medical"></i>
+                                <h4>Generate Report</h4>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="chart-card mt-4">
+                        <div class="chart-header">
+                            <h3>Upcoming Appointments</h3>
+                        </div>
+                        <div class="appointment-list">
+                            <div class="d-flex align-items-center gap-3 mb-3 pb-3 border-bottom">
+                                <div class="stat-icon primary" style="width: 45px; height: 45px; font-size: 1rem;">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <div>
+                                    <h4 style="font-size: 0.875rem; margin: 0;">John Doe</h4>
+                                    <span style="font-size: 0.75rem; color: #6B7280;">Cardiology - 10:00 AM</span>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center gap-3 mb-3 pb-3 border-bottom">
+                                <div class="stat-icon blue" style="width: 45px; height: 45px; font-size: 1rem;">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <div>
+                                    <h4 style="font-size: 0.875rem; margin: 0;">Sarah Wilson</h4>
+                                    <span style="font-size: 0.75rem; color: #6B7280;">Orthopedics - 11:30 AM</span>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center gap-3">
+                                <div class="stat-icon orange" style="width: 45px; height: 45px; font-size: 1rem;">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <div>
+                                    <h4 style="font-size: 0.875rem; margin: 0;">Mike Johnson</h4>
+                                    <span style="font-size: 0.75rem; color: #6B7280;">General - 2:00 PM</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../js/main.js"></script>
+    <script>
+        // Toggle Sidebar
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.getElementById('mainContent');
+            sidebar.classList.toggle('collapsed');
+            mainContent.classList.toggle('expanded');
+        }
+        
+        // Toggle Theme
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', newTheme);
+            
+            // Update charts for dark mode
+            updateChartsForTheme(newTheme);
+        }
+        
+        // Patient Trends Chart
+        const patientCtx = document.getElementById('patientChart').getContext('2d');
+        const patientChart = new Chart(patientCtx, {
+            type: 'line',
+            data: {
+                labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                datasets: [{
+                    label: 'In-Patients',
+                    data: [45, 52, 49, 63, 58, 72, 68],
+                    borderColor: '#0D9488',
+                    backgroundColor: 'rgba(13, 148, 136, 0.1)',
+                    fill: true,
+                    tension: 0.4
+                }, {
+                    label: 'Out-Patients',
+                    data: [78, 85, 92, 88, 95, 102, 98],
+                    borderColor: '#0EA5E9',
+                    backgroundColor: 'rgba(14, 165, 233, 0.1)',
+                    fill: true,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+        
+        // Department Chart
+        const deptCtx = document.getElementById('departmentChart').getContext('2d');
+        const departmentChart = new Chart(deptCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Cardiology', 'Orthopedics', 'Neurology', 'Pediatrics', 'General'],
+                datasets: [{
+                    data: [30, 25, 20, 15, 10],
+                    backgroundColor: [
+                        '#0D9488',
+                        '#0EA5E9',
+                        '#F59E0B',
+                        '#EF4444',
+                        '#8B5CF6'
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }
+        });
+        
+        // Update charts for theme
+        function updateChartsForTheme(theme) {
+            const textColor = theme === 'dark' ? '#D1D5DB' : '#6B7280';
+            const gridColor = theme === 'dark' ? '#374151' : '#E5E7EB';
+            
+            patientChart.options.scales.x.ticks = { color: textColor };
+            patientChart.options.scales.y.ticks = { color: textColor };
+            patientChart.options.scales.x.grid = { color: gridColor };
+            patientChart.options.scales.y.grid = { color: gridColor };
+            patientChart.update();
+        }
+        
+        // Chart buttons
+        document.querySelectorAll('.chart-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.chart-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>

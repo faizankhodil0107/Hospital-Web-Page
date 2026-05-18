@@ -1,0 +1,51 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    background-color: rgb(0, 0, 72);
+    color: rgb(255, 255, 255);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.sec{
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+.card{
+    background: rgba(255, 255, 255, 0.2); 
+
+  /* 2. The key "frosted glass" effect */
+    backdrop-filter: blur(10px); 
+  /* Add vendor prefix for broader browser support (especially Safari) */
+    -webkit-backdrop-filter: blur(10px); 
+
+  /* 3. Aesthetic enhancements (border, shadow, shape) */
+    border-radius: 16px; 
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); 
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Subtle white border */
+    padding: 40px;
+    border-radius: 20px;
+    display: flex;
+    
+    row-gap: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+input{
+    border-radius: 20px;
+    border: none;
+    padding: 10px;
+    direction: none;
+
+}
+input:hover{
+    background-color: rgb(192, 237, 255);
+    transition-duration: .3s;
+    box-shadow: 2px 2px 25px;
+}

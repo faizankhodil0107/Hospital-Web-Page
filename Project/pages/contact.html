@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Care Connect Hospital</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../css/main.css">
+    
+    <style>
+        .contact-hero {
+            background: linear-gradient(135deg, rgba(13, 148, 136, 0.95) 0%, rgba(14, 165, 233, 0.95) 100%);
+            padding: 5rem 0;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .contact-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23ffffff" fill-opacity="0.05"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
+        }
+        
+        .contact-card {
+            background: var(--white);
+            border-radius: 1.5rem;
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+        }
+        
+        .contact-info-section {
+            background: linear-gradient(135deg, #0D9488 0%, #0EA5E9 100%);
+            padding: 3rem;
+            color: white;
+        }
+        
+        .contact-info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .contact-info-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            flex-shrink: 0;
+        }
+        
+        .contact-info-content h5 {
+            font-size: 1rem;
+            margin-bottom: 0.25rem;
+            font-weight: 600;
+        }
+        
+        .contact-info-content p {
+            opacity: 0.9;
+            margin: 0;
+            font-size: 0.9rem;
+        }
+        
+        .contact-form-section {
+            padding: 3rem;
+        }
+        
+        .contact-form .form-control,
+        .contact-form .form-select {
+            border: 2px solid var(--border-color);
+            border-radius: 0.75rem;
+            padding: 0.875rem 1rem;
+        }
+        
+        .contact-form .form-control:focus,
+        .contact-form .form-select:focus {
+            border-color: var(--primary-teal);
+            box-shadow: 0 0 0 4px rgba(13, 148, 136, 0.1);
+        }
+        
+        .submit-btn {
+            background: linear-gradient(135deg, #0D9488 0%, #0EA5E9 100%);
+            border: none;
+            padding: 1rem 2rem;
+            font-weight: 600;
+            border-radius: 0.75rem;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(13, 148, 136, 0.3);
+        }
+        
+        .map-container {
+            border-radius: 1.5rem;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            height: 400px;
+        }
+        
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        .emergency-box {
+            background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            color: white;
+            text-align: center;
+        }
+        
+        .emergency-box h3 {
+            color: white;
+            margin-bottom: 1rem;
+        }
+        
+        .emergency-box .btn {
+            background: white;
+            color: #EF4444;
+            font-weight: 600;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .social-links a {
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: var(--transition-base);
+        }
+        
+        .social-links a:hover {
+            background: white;
+            color: var(--primary-teal);
+            transform: translateY(-3px);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="hospital-header">
+        <div class="header-container">
+            <div class="logo-section">
+                <a href="../index.html">
+                    <img src="../public/images/CareConnect Logo.png" alt="Care Connect" class="logo-img">
+                </a>
+                <span class="logo-text">Care Connect</span>
+            </div>
+            
+            <button class="menu-toggle" id="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            
+            <nav class="main-nav" id="main-nav">
+                <a href="../index.html" class="nav-link">
+                    <i class="fas fa-home me-2 d-lg-none"></i>Home
+                </a>
+                <a href="../pages/abt.Dr.html" class="nav-link">
+                    <i class="fas fa-user-md me-2 d-lg-none"></i>Doctors
+                </a>
+                <a href="../pages/appointment.html" class="nav-link">
+                    <i class="fas fa-calendar-check me-2 d-lg-none"></i>Appointment
+                </a>
+                <a href="../pages/Login.html" class="nav-link">
+                    <i class="fas fa-notes-medical me-2 d-lg-none"></i>Patient Portal
+                </a>
+                <a href="../pages/contact.html" class="nav-link active">
+                    <i class="fas fa-envelope me-2 d-lg-none"></i>Contact
+                </a>
+            </nav>
+            
+            <div class="header-actions">
+                <button class="theme-toggle" id="theme-toggle" title="Toggle Theme">
+                    <i class="fas fa-moon"></i>
+                </button>
+                
+                <a href="../pages/Login.html" class="btn btn-primary">
+                    <i class="fas fa-sign-in-alt me-2"></i>Login
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="contact-hero">
+        <div class="container text-center position-relative">
+            <h1 class="mb-3">Contact Us</h1>
+            <p class="lead">We're here to help. Reach out to us anytime.</p>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-6">
+                    <div class="contact-card">
+                        <div class="contact-info-section">
+                            <h3 class="mb-4">Get in Touch</h3>
+                            
+                            <div class="contact-info-item">
+                                <div class="contact-info-icon">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </div>
+                                <div class="contact-info-content">
+                                    <h5>Address</h5>
+                                    <p>Solapur-Aurangabad Bypass,<br>Osmanabad, Maharashtra</p>
+                                </div>
+                            </div>
+                            
+                            <div class="contact-info-item">
+                                <div class="contact-info-icon">
+                                    <i class="fas fa-phone-alt"></i>
+                                </div>
+                                <div class="contact-info-content">
+                                    <h5>Phone</h5>
+                                    <p>+91 7744872874<br>+91 9322232299</p>
+                                </div>
+                            </div>
+                            
+                            <div class="contact-info-item">
+                                <div class="contact-info-icon">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div class="contact-info-content">
+                                    <h5>Email</h5>
+                                    <p>CareConnect00@gmail.com<br>info@careconnect.com</p>
+                                </div>
+                            </div>
+                            
+                            <div class="contact-info-item">
+                                <div class="contact-info-icon">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                                <div class="contact-info-content">
+                                    <h5>Hours</h5>
+                                    <p>Mon - Sat: 9:00 AM - 8:00 PM<br>Sunday: 10:00 AM - 2:00 PM</p>
+                                </div>
+                            </div>
+                            
+                            <div class="social-links">
+                                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                                <a href="#"><i class="fab fa-twitter"></i></a>
+                                <a href="#"><i class="fab fa-instagram"></i></a>
+                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6">
+                    <div class="contact-card">
+                        <div class="contact-form-section">
+                            <h3 class="mb-4">Send us a Message</h3>
+                            
+                            <form class="contact-form" id="contactForm">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">Full Name</label>
+                                            <input type="text" class="form-control" id="contactName" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">Email Address</label>
+                                            <input type="email" class="form-control" id="contactEmail" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">Phone Number</label>
+                                            <input type="tel" class="form-control" id="contactPhone">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">Subject</label>
+                                            <select class="form-select" id="contactSubject">
+                                                <option value="">Select Subject</option>
+                                                <option value="appointment">Book Appointment</option>
+                                                <option value="general">General Inquiry</option>
+                                                <option value="feedback">Feedback</option>
+                                                <option value="complaint">Complaint</option>
+                                                <option value="other">Other</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label class="form-label">Message</label>
+                                    <textarea class="form-control" id="contactMessage" rows="5" required></textarea>
+                                </div>
+                                
+                                <button type="submit" class="btn btn-primary submit-btn w-100">
+                                    <i class="fas fa-paper-plane me-2"></i>Send Message
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Emergency Box -->
+            <div class="row mt-4">
+                <div class="col-12">
+                    <div class="emergency-box">
+                        <div class="row align-items-center">
+                            <div class="col-lg-8">
+                                <h3><i class="fas fa-ambulance me-2"></i>24/7 Emergency Services</h3>
+                                <p class="mb-0">For medical emergencies, please call our emergency hotline immediately. Our team is available round the clock.</p>
+                            </div>
+                            <div class="col-lg-4 text-lg-end mt-3 mt-lg-0">
+                                <a href="tel:+919876543210" class="btn">
+                                    <i class="fas fa-phone-alt me-2"></i>+91 9860371199
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Map -->
+            <div class="row mt-4">
+                <div class="col-12">
+                    <h3 class="mb-4">Find Our Location</h3>
+                    <div class="map-container">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d60645.95386025817!2d76.00323170166857!3d18.192815906392628!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc5a22b89c9a693%3A0x8aec87add8bfeebc!2sDharashiv%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1764748811302!5m2!1sen!2sin" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2025 Care Connect Hospital. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/main.js"></script>
+    <script>
+        // Contact Form
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('contactName').value;
+            const email = document.getElementById('contactEmail').value;
+            const message = document.getElementById('contactMessage').value;
+            
+            // Simulate form submission
+            showToast('Message Sent!', `Thank you ${name}! We'll contact you at ${email} shortly.`, 'success');
+            
+            // Reset form
+            this.reset();
+        });
+    </script>
+</body>
+</html>

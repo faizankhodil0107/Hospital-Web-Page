@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Care Connect Hospital - Your Trusted Healthcare Partner</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/main.css">
+    
+    <style>
+        /* Landing Page Hero Restyle - matches AI healthcare reference while keeping old page content */
+        .hero-section {
+            min-height: 760px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            background:
+                radial-gradient(circle at 62% 38%, rgba(0, 169, 157, 0.15), transparent 25rem),
+                radial-gradient(circle at 12% 32%, rgba(0, 169, 157, 0.08), transparent 18rem),
+                linear-gradient(180deg, #ffffff 0%, #effcfb 100%);
+            border-bottom: 1px solid rgba(0, 169, 157, 0.08);
+        }
+
+        [data-theme="dark"] .hero-section {
+            background:
+                radial-gradient(circle at 62% 38%, rgba(0, 169, 157, 0.22), transparent 25rem),
+                linear-gradient(180deg, #0b1215 0%, #081817 100%);
+        }
+        
+        .hero-shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+        
+        .hero-shape {
+            position: absolute;
+            opacity: 0.14;
+            color: var(--primary-teal);
+        }
+        
+        .hero-shape-1,
+        .hero-shape-2 {
+            width: auto;
+            height: auto;
+            background: none;
+            border-radius: 0;
+        }
+        
+        .hero-shape-1 {
+            top: 110px;
+            right: 9%;
+        }
+        
+        .hero-shape-2 {
+            bottom: 135px;
+            left: 47%;
+        }
+
+        .hero-shape-1::before,
+        .hero-shape-2::before,
+        .hero-plus::before {
+            content: '+';
+            font-size: 4.2rem;
+            font-weight: 800;
+            line-height: 1;
+            -webkit-text-stroke: 4px currentColor;
+            color: transparent;
+        }
+
+        .hero-plus {
+            position: absolute;
+            color: var(--primary-teal);
+            opacity: 0.11;
+            pointer-events: none;
+        }
+
+        .hero-plus.plus-left { top: 110px; left: 40%; }
+        .hero-plus.plus-small { right: 14%; bottom: 130px; transform: scale(.7); }
+        
+        .floating-card {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(18px);
+            border: 1px solid rgba(0, 169, 157, 0.12);
+            border-radius: 1.125rem;
+            padding: 0;
+            color: var(--text-dark);
+            animation: float 4s ease-in-out infinite;
+            box-shadow: 0 22px 70px rgba(0, 169, 157, 0.13);
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .stat-counter {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-teal);
+        }
+        
+        .service-card {
+            background: var(--white);
+            border-radius: 1rem;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition-base);
+            border: 2px solid transparent;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl);
+            border-color: var(--primary-teal);
+        }
+        
+        .service-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(0, 169, 157, 0.13), rgba(0, 169, 157, 0.06));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+            color: var(--primary-teal);
+        }
+        
+        .department-card {
+            position: relative;
+            border-radius: 1rem;
+            overflow: hidden;
+            height: 250px;
+        }
+        
+        .department-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition-slow);
+        }
+        
+        .department-card:hover img {
+            transform: scale(1.1);
+        }
+        
+        .department-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            padding: 1.5rem;
+            color: var(--white);
+        }
+        
+        .newsletter-form {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 1rem;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+        }
+        
+        .newsletter-form input {
+            background: var(--white);
+            border: none;
+            padding: 1rem 1.5rem;
+            border-radius: 0.5rem;
+        }
+        
+        .newsletter-form button {
+            padding: 1rem 2rem;
+        }
+        
+        .emergency-banner {
+            background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+            color: white;
+            padding: 1rem 0;
+        }
+
+        .ai-hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 590px;
+            padding: 2rem 0;
+        }
+
+        .ai-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            min-height: 34px;
+            padding: 0 16px;
+            border-radius: 999px;
+            background: rgba(0, 169, 157, 0.14);
+            color: var(--primary-teal-dark);
+            font-size: 0.86rem;
+            font-weight: 800;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            margin-bottom: 1.75rem;
+        }
+
+        .ai-hero-title {
+            color: #121821;
+            font-size: clamp(3rem, 5.6vw, 4.9rem);
+            font-weight: 800;
+            line-height: 1.12;
+            letter-spacing: -0.065em;
+            margin-bottom: 1.5rem;
+        }
+
+        [data-theme="dark"] .ai-hero-title {
+            color: var(--text-dark);
+        }
+
+        .ai-hero-title span {
+            color: var(--primary-teal);
+        }
+
+        .ai-hero-subtitle {
+            color: var(--text-muted);
+            font-size: clamp(1.05rem, 1.6vw, 1.35rem);
+            line-height: 1.62;
+            font-weight: 500;
+            max-width: 560px;
+            margin-bottom: 2.3rem;
+        }
+
+        .ai-hero-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.15rem;
+        }
+
+        .ai-hero-btn {
+            min-height: 58px;
+            padding: 0 1.55rem;
+            border-radius: 0.7rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            font-weight: 800;
+            transition: transform 180ms ease, box-shadow 180ms ease;
+        }
+
+        .ai-hero-btn:hover {
+            transform: translateY(-3px);
+        }
+
+        .ai-hero-btn.primary {
+            color: #fff;
+            background: linear-gradient(135deg, var(--primary-teal), #08b7aa);
+            box-shadow: 0 18px 38px rgba(0, 169, 157, 0.24);
+        }
+
+        .ai-hero-btn.outline {
+            color: var(--primary-teal-dark);
+            background: rgba(255,255,255,.72);
+            border: 1px solid rgba(0, 169, 157, 0.45);
+        }
+
+        [data-theme="dark"] .ai-hero-btn.outline {
+            background: rgba(255,255,255,.06);
+        }
+
+        .ai-hero-visual {
+            position: relative;
+            min-height: 530px;
+            display: grid;
+            place-items: center;
+            z-index: 2;
+        }
+
+        .mint-orb {
+            position: absolute;
+            width: min(530px, 82vw);
+            height: min(530px, 82vw);
+            border-radius: 50%;
+            background: radial-gradient(circle at 42% 26%, rgba(255,255,255,.93), rgba(0,169,157,.18) 54%, rgba(0,169,157,.08));
+        }
+
+        .ai-chat-card {
+            width: min(394px, 92vw);
+            margin-top: 86px;
+            background: rgba(255,255,255,.94);
+            border: 1px solid rgba(18, 24, 33, .08);
+            border-radius: 1.125rem;
+            box-shadow: 0 22px 70px rgba(0, 169, 157, .13);
+            backdrop-filter: blur(18px);
+            overflow: hidden;
+            z-index: 3;
+        }
+
+        [data-theme="dark"] .ai-chat-card {
+            background: rgba(14,24,28,.92);
+        }
+
+        .ai-chat-head {
+            display: flex;
+            align-items: center;
+            gap: .8rem;
+            padding: 1.25rem 1.25rem .95rem;
+            border-bottom: 1px solid rgba(18, 24, 33, .07);
+        }
+
+        .assistant-icon {
+            width: 38px;
+            height: 38px;
+            display: grid;
+            place-items: center;
+            color: #fff;
+            background: var(--primary-teal);
+            border-radius: 50%;
+        }
+
+        .ai-online {
+            display: inline-flex;
+            align-items: center;
+            gap: .4rem;
+            color: var(--text-muted);
+            font-size: .78rem;
+            font-weight: 600;
+        }
+
+        .ai-online::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #15d27c;
+        }
+
+        .ai-bubble {
+            width: 236px;
+            margin: .9rem 1rem;
+            padding: .9rem 1rem;
+            border-radius: .75rem;
+            border-top-left-radius: .35rem;
+            background: #eef4f7;
+            color: #13202a;
+            line-height: 1.45;
+            font-size: .9rem;
+        }
+
+        [data-theme="dark"] .ai-bubble {
+            background: rgba(255,255,255,.1);
+            color: var(--text-dark);
+        }
+
+        .ai-prompt-list {
+            display: grid;
+            margin: .25rem 1rem 1.1rem;
+            border: 1px solid var(--border-color);
+            border-radius: .8rem;
+            overflow: hidden;
+        }
+
+        .ai-prompt-list a {
+            display: flex;
+            align-items: center;
+            gap: .75rem;
+            padding: .75rem .9rem;
+            color: #075b67;
+            font-size: .84rem;
+            font-weight: 700;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        [data-theme="dark"] .ai-prompt-list a { color: #76eee5; }
+        .ai-prompt-list a:last-child { border-bottom: 0; }
+        .ai-prompt-list i { color: var(--primary-teal); width: 15px; text-align: center; }
+
+        .ai-chat-input {
+            display: flex;
+            align-items: center;
+            gap: .75rem;
+            margin: 0 1rem 1rem;
+            padding: .65rem .65rem .65rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 999px;
+        }
+
+        .ai-chat-input span:first-child {
+            flex: 1;
+            color: #8b9aaa;
+            font-size: .8rem;
+        }
+
+        .send-btn {
+            width: 38px;
+            height: 38px;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            color: #fff;
+            background: var(--primary-teal);
+        }
+
+        .ai-robot {
+            position: absolute;
+            top: 8px;
+            right: 68px;
+            z-index: 4;
+            width: 170px;
+            height: 205px;
+            filter: drop-shadow(0 18px 24px rgba(18, 24, 33, .13));
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .robot-head {
+            position: relative;
+            width: 126px;
+            height: 102px;
+            margin: 0 auto;
+            border-radius: 38px;
+            background: linear-gradient(145deg, #ffffff, #eaf1f4);
+            border: 1px solid rgba(18,24,33,.08);
+            display: grid;
+            place-items: center;
+        }
+
+        .robot-face {
+            width: 94px;
+            height: 68px;
+            border-radius: 24px;
+            background: #101923;
+            position: relative;
+        }
+
+        .robot-eye {
+            position: absolute;
+            top: 25px;
+            width: 13px;
+            height: 21px;
+            border-radius: 999px;
+            background: #24e4db;
+        }
+
+        .robot-eye.left { left: 27px; }
+        .robot-eye.right { right: 27px; }
+
+        .robot-smile {
+            position: absolute;
+            left: 50%;
+            bottom: 17px;
+            width: 31px;
+            height: 15px;
+            border-bottom: 4px solid #24e4db;
+            border-radius: 0 0 999px 999px;
+            transform: translateX(-50%);
+        }
+
+        .robot-ear {
+            position: absolute;
+            top: 43px;
+            width: 20px;
+            height: 39px;
+            border-radius: 999px;
+            background: #e9f1f3;
+            border: 1px solid rgba(18,24,33,.08);
+        }
+
+        .robot-ear::after {
+            content: '';
+            position: absolute;
+            inset: 8px 5px;
+            border-radius: 999px;
+            background: #24e4db;
+        }
+
+        .robot-ear.left { left: 7px; }
+        .robot-ear.right { right: 7px; }
+
+        .robot-body {
+            position: relative;
+            width: 128px;
+            height: 112px;
+            margin: -10px auto 0;
+            border-radius: 56px 56px 30px 30px;
+            background: linear-gradient(145deg, #ffffff, #e8f1f4);
+            border: 1px solid rgba(18,24,33,.08);
+        }
+
+        .robot-badge {
+            position: absolute;
+            top: 35px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 43px;
+            height: 43px;
+            border-radius: 50%;
+            background: var(--primary-teal);
+            color: #fff;
+            display: grid;
+            place-items: center;
+            font-size: 21px;
+        }
+
+        .robot-arm {
+            position: absolute;
+            top: 29px;
+            width: 20px;
+            height: 60px;
+            border-radius: 999px;
+            background: linear-gradient(180deg, var(--primary-teal), #eaf1f4 42%);
+        }
+
+        .robot-arm.left { left: -13px; transform: rotate(-16deg); }
+        .robot-arm.right { right: -13px; transform: rotate(16deg); }
+
+        @media (max-width: 991px) {
+            .hero-section { min-height: auto; padding: 4rem 0 3rem; }
+            .ai-hero-visual { min-height: 520px; margin-top: 2rem; }
+        }
+
+        @media (max-width: 575px) {
+            html,
+            body {
+                max-width: 100%;
+                overflow-x: hidden;
+            }
+
+            .emergency-banner .container {
+                gap: .85rem;
+            }
+
+            .emergency-banner .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .hero-section .container {
+                overflow: hidden;
+            }
+
+            .ai-hero-content,
+            .ai-hero-subtitle {
+                max-width: 100%;
+                min-width: 0;
+                overflow-wrap: break-word;
+            }
+
+            .ai-hero-title { font-size: clamp(2.55rem, 11vw, 3.2rem); }
+            .ai-hero-subtitle { font-size: 1rem; line-height: 1.58; max-width: 330px; }
+            .ai-hero-btn { width: 100%; }
+            .ai-robot { right: 50%; transform: translateX(50%); animation: none; }
+            .ai-chat-card { width: 100%; }
+            .hero-plus, .hero-shape { display: none; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="chatbot">
+        <a href="pages/botindex.html" class="chatbot-toggle">
+            <i class="fas fa-comments"></i>
+            <span class="chatbot-text">health support AI</span>
+        </a>
+    </div>
+
+    <!-- Emergency Banner -->
+    <div class="emergency-banner">
+        <div class="container d-flex align-items-center justify-content-between flex-wrap">
+            <div class="d-flex align-items-center gap-3">
+                <i class="fas fa-ambulance fa-2x"></i>
+                <div>
+                    <h5 class="mb-0">24/7 Emergency Services</h5>
+                    <small>Call us: +91 98765 43210</small>
+                </div>
+            </div>
+            <a href="pages/contact.html" class="btn btn-light btn-sm">
+                <i class="fas fa-phone-alt me-2"></i>Get Emergency Help
+            </a>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="hospital-header">
+        <div class="header-container">
+            <div class="logo-section">
+                <img src="public/images/CareConnect Logo.png" alt="Care Connect" class="logo-img">
+                <span class="logo-text">Care Connect</span>
+            </div>
+            
+            <button class="menu-toggle" id="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            
+            <nav class="main-nav" id="main-nav">
+                <a href="index.html" class="nav-link active">
+                    <i class="fas fa-home me-2 d-lg-none"></i>Home
+                </a>
+                <a href="pages/abt.Dr.html" class="nav-link">
+                    <i class="fas fa-user-md me-2 d-lg-none"></i>Doctors
+                </a>
+                <a href="pages/appointment.html" class="nav-link">
+                    <i class="fas fa-calendar-check me-2 d-lg-none"></i>Appointment
+                </a>
+                <a href="pages/Login.html" class="nav-link">
+                    <i class="fas fa-notes-medical me-2 d-lg-none"></i>Patient Portal
+                </a>
+                <a href="pages/contact.html" class="nav-link">
+                    <i class="fas fa-envelope me-2 d-lg-none"></i>Contact
+                </a>
+            </nav>
+            
+            <div class="header-actions">
+                <button class="theme-toggle" id="theme-toggle" title="Toggle Theme">
+                    <i class="fas fa-moon"></i>
+                </button>
+                
+                <a href="pages/Login.html" class="btn btn-primary">
+                    <i class="fas fa-sign-in-alt me-2"></i>Login
+                </a>
+                
+                <div class="profile-dropdown d-none">
+                    <button class="profile-btn">
+                        <div class="profile-avatar">A</div>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item"><i class="fas fa-user"></i> My Profile</a>
+                        <a href="#" class="dropdown-item"><i class="fas fa-cog"></i> Settings</a>
+                        <hr class="my-2">
+                        <a href="#" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-shapes">
+            <div class="hero-shape hero-shape-1"></div>
+            <div class="hero-shape hero-shape-2"></div>
+            <div class="hero-plus plus-left"></div>
+            <div class="hero-plus plus-small"></div>
+        </div>
+        
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <div class="ai-hero-content">
+                        <span class="ai-eyebrow">AI Powered Healthcare</span>
+                        <h1 class="ai-hero-title">Your Health,<br>Our <span>Priority</span></h1>
+                        <p class="ai-hero-subtitle">
+                            Get instant health information, book appointments, and consult with our AI assistant for your health-related queries.
+                        </p>
+                        <div class="ai-hero-buttons">
+                            <a href="pages/appointment.html" class="ai-hero-btn primary">
+                                <i class="far fa-calendar-check"></i>Book Appointment
+                            </a>
+                            <a href="pages/botindex.html" class="ai-hero-btn outline">
+                                <i class="far fa-comment-dots"></i>Chat with AI
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6">
+                    <div class="ai-hero-visual">
+                        <div class="mint-orb"></div>
+                        <div class="ai-robot" aria-hidden="true">
+                            <div class="robot-head">
+                                <span class="robot-ear left"></span>
+                                <span class="robot-ear right"></span>
+                                <div class="robot-face">
+                                    <span class="robot-eye left"></span>
+                                    <span class="robot-eye right"></span>
+                                    <span class="robot-smile"></span>
+                                </div>
+                            </div>
+                            <div class="robot-body">
+                                <span class="robot-arm left"></span>
+                                <span class="robot-arm right"></span>
+                                <span class="robot-badge"><i class="fas fa-plus"></i></span>
+                            </div>
+                        </div>
+                        <article class="ai-chat-card">
+                            <div class="ai-chat-head">
+                                <span class="assistant-icon"><i class="fas fa-kit-medical"></i></span>
+                                <div>
+                                    <h5 class="mb-0">AI Health Assistant</h5>
+                                    <span class="ai-online">Online</span>
+                                </div>
+                            </div>
+                            <div class="ai-bubble">
+                                Hello! 👋<br>
+                                I'm your AI health assistant.<br>
+                                How can I help you today?
+                            </div>
+                            <div class="ai-prompt-list">
+                                <a href="pages/botindex.html"><i class="fas fa-head-side-virus"></i>I have a headache</a>
+                                <a href="pages/appointment.html"><i class="far fa-calendar-days"></i>Book an appointment</a>
+                                <a href="#services"><i class="far fa-heart"></i>Health tips</a>
+                                <a href="pages/abt.Dr.html"><i class="far fa-user"></i>Talk to a doctor</a>
+                            </div>
+                            <a class="ai-chat-input" href="pages/botindex.html">
+                                <span>Type your message...</span>
+                                <span class="send-btn"><i class="fas fa-paper-plane"></i></span>
+                            </a>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Actions -->
+    <section class="quick-actions" style="margin-top: 0;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-sm-6">
+                    <div class="quick-action-card">
+                        <div class="quick-action-icon">
+                            <i class="fas fa-calendar-plus"></i>
+                        </div>
+                        <h4>Book Appointment</h4>
+                        <p>Schedule your visit online</p>
+                        <a href="pages/appointment.html" class="btn btn-sm btn-outline mt-2">Book Now</a>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="quick-action-card">
+                        <div class="quick-action-icon" style="background: linear-gradient(135deg, #0EA5E9 0%, #0284C7 100%);">
+                            <i class="fas fa-user-md"></i>
+                        </div>
+                        <h4>Find Doctors</h4>
+                        <p>Browse our specialists</p>
+                        <a href="pages/abt.Dr.html" class="btn btn-sm btn-outline mt-2">View All</a>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="quick-action-card">
+                        <div class="quick-action-icon" style="background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);">
+                            <i class="fas fa-file-medical-alt"></i>
+                        </div>
+                        <h4>Patient Portal</h4>
+                        <p>Access your records</p>
+                        <a href="pages/Management/Patient Management.html" class="btn btn-sm btn-outline mt-2">Access Portal</a>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="quick-action-card">
+                        <div class="quick-action-icon" style="background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);">
+                            <i class="fas fa-ambulance"></i>
+                        </div>
+                        <h4>Emergency</h4>
+                        <p>24/7 emergency care</p>
+                        <a href="tel:+919876543210" class="btn btn-sm btn-outline mt-2">Call Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="section" id="services" style="background: var(--light-bg);">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Services</h2>
+                <p>Comprehensive healthcare services across multiple specialties</p>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <h4>Cardiology</h4>
+                        <p class="text-muted">Advanced cardiac care with state-of-the-art technology and experienced cardiologists.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-bone"></i>
+                        </div>
+                        <h4>Orthopedics</h4>
+                        <p class="text-muted">Complete bone and joint care including surgeries, rehabilitation, and physiotherapy.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <h4>Neurology</h4>
+                        <p class="text-muted">Expert care for brain, spine, and nervous system disorders.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-baby"></i>
+                        </div>
+                        <h4>Pediatrics</h4>
+                        <p class="text-muted">Specialized healthcare for infants, children, and adolescents.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-lungs"></i>
+                        </div>
+                        <h4>Pulmonology</h4>
+                        <p class="text-muted">Comprehensive respiratory care and treatment for lung conditions.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-user-md"></i>
+                        </div>
+                        <h4>General Medicine</h4>
+                        <p class="text-muted">Primary healthcare services for all your medical needs.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Departments -->
+    <section class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Departments</h2>
+                <p>Explore our specialized departments</p>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="department-card">
+                        <img src="https://images.unsplash.com/photo-1559757175-5700dde675bc?w=400&h=300&fit=crop" alt="Emergency">
+                        <div class="department-overlay">
+                            <h4>Emergency</h4>
+                            <p>24/7 Emergency Services</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="department-card">
+                        <img src="public/images/photo-intensive-care-unit-icu-with-monitoring-equipment_1056572-29216.avif" alt="ICU">
+                        <div class="department-overlay">
+                            <h4>ICU & Critical Care</h4>
+                            <p>Advanced Life Support</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="department-card">
+                        <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=400&h=300&fit=crop" alt="Operation Theater">
+                        <div class="department-overlay">
+                            <h4>Operation Theater</h4>
+                            <p>Modern Surgical Suites</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Doctors Preview -->
+    <section class="section" style="background: var(--light-bg);">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Expert Doctors</h2>
+                <p>Meet our team of highly qualified specialists</p>
+            </div>
+            
+            <div class="doctors-grid">
+                <div class="doctor-card">
+                    <img src="public/images/detailed-d-male-doctor-avatar-providing-medical-consultation-horizontal-layout-detailed-d-male-doctor-avatar-providing-352922920.webp" alt="Dr. Ibrahim Khodil" class="doctor-image">
+                    <div class="doctor-info">
+                        <h4 class="doctor-name">Dr. Ibrahim Khodil</h4>
+                        <p class="doctor-specialty">Cardiologist</p>
+                        <div class="doctor-details">
+                            <span><i class="fas fa-certificate"></i> 15+ Years Exp.</span>
+                            <span><i class="fas fa-star text-warning"></i> 4.9</span>
+                        </div>
+                        <a href="pages/doctors/Dr.IK.appointment.html" class="btn btn-primary btn-sm w-100">
+                            <i class="fas fa-calendar-check me-2"></i>Book Appointment
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="doctor-card">
+                    <img src="public/images/DrPic.jpg" alt="Dr.  Yash Gulati" class="doctor-image">
+                    <div class="doctor-info">
+                        <h4 class="doctor-name">Dr.  Yash Gulati</h4>
+                        <p class="doctor-specialty">Orthopedic Surgeon</p>
+                        <div class="doctor-details">
+                            <span><i class="fas fa-certificate"></i> 12+ Years Exp.</span>
+                            <span><i class="fas fa-star text-warning"></i> 4.8</span>
+                        </div>
+                        <a href="pages/doctors/Dr.IK.appointment.html" class="btn btn-primary btn-sm w-100">
+                            <i class="fas fa-calendar-check me-2"></i>Book Appointment
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="doctor-card">
+                    <img src="public/images/cute-cartoon-3d-girl-ware-doctor-cloth-friendly-female-doctor-illustration_862994-64756.jpg.jpeg" alt="Dr. Sana Sayyed" class="doctor-image">
+                    <div class="doctor-info">
+                        <h4 class="doctor-name">Dr. Sana Sayyed</h4>
+                        <p class="doctor-specialty">Neurologist</p>
+                        <div class="doctor-details">
+                            <span><i class="fas fa-certificate"></i> 10+ Years Exp.</span>
+                            <span><i class="fas fa-star text-warning"></i> 4.9</span>
+                        </div>
+                        <a href="pages/doctors/Dr.IK.appointment.html" class="btn btn-primary btn-sm w-100">
+                            <i class="fas fa-calendar-check me-2"></i>Book Appointment
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-5">
+                <a href="pages/abt.Dr.html" class="btn btn-outline btn-lg">
+                    View All Doctors <i class="fas fa-arrow-right ms-2"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>What Our Patients Say</h2>
+                <p>Feedback from our valued patients</p>
+            </div>
+            
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">RK</div>
+                        <div class="testimonial-info">
+                            <h4>Rohit Kumar</h4>
+                            <span>Cardiac Patient</span>
+                        </div>
+                    </div>
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">"Excellent care! The doctors and staff were incredibly supportive throughout my treatment. Highly recommended!"</p>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">PS</div>
+                        <div class="testimonial-info">
+                            <h4>Priya Sharma</h4>
+                            <span>Patient's Family</span>
+                        </div>
+                    </div>
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">"Clean facilities and professional staff. The appointment process was smooth and hassle-free."</p>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">AV</div>
+                        <div class="testimonial-info">
+                            <h4>Amit Verma</h4>
+                            <span>Regular Patient</span>
+                        </div>
+                    </div>
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <p class="testimonial-text">"Best hospital in the region. The healthcare team is highly skilled and genuinely cares about patients."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section" style="background: linear-gradient(135deg, var(--primary-teal) 0%, var(--primary-blue) 100%);">
+        <div class="container text-center text-white">
+            <h2 class="mb-4">Ready to Book Your Appointment?</h2>
+            <p class="mb-4" style="font-size: 1.125rem; opacity: 0.9;">Take the first step towards better health. Our team is here to help you.</p>
+            <div class="d-flex gap-3 justify-content-center flex-wrap">
+                <a href="pages/appointment.html" class="hero-btn hero-btn-primary">
+                    <i class="fas fa-calendar-plus me-2"></i>Book Now
+                </a>
+                <a href="pages/contact.html" class="hero-btn hero-btn-outline">
+                    <i class="fas fa-phone me-2"></i>Contact Us
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-brand">
+                        <img src="public/images/CareConnect Logo.png" alt="Care Connect">
+                        <h3>Care Connect</h3>
+                    </div>
+                    <p class="footer-about">
+                        Care Connect Hospital is a leading multi-specialty healthcare provider committed to delivering exceptional medical care with compassion and excellence.
+                    </p>
+                    <div class="footer-social">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h5 class="footer-title">Quick Links</h5>
+                    <ul class="footer-links">
+                        <li><a href="index.html"><i class="fas fa-chevron-right me-2"></i>Home</a></li>
+                        <li><a href="pages/abt.Dr.html"><i class="fas fa-chevron-right me-2"></i>Our Doctors</a></li>
+                        <li><a href="pages/appointment.html"><i class="fas fa-chevron-right me-2"></i>Appointments</a></li>
+                        <li><a href="pages/contact.html"><i class="fas fa-chevron-right me-2"></i>Contact Us</a></li>
+                        <li><a href="pages/Management/Patient Management.html"><i class="fas fa-chevron-right me-2"></i>Patient Portal</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h5 class="footer-title">Departments</h5>
+                    <ul class="footer-links">
+                        <li><a href=""><i class="fas fa-chevron-right me-2"></i>Cardiology</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right me-2"></i>Orthopedics</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right me-2"></i>Neurology</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right me-2"></i>Pediatrics</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right me-2"></i>General Medicine</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h5 class="footer-title">Contact Info</h5>
+                    <ul class="footer-contact">
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Solapur-Aurangabad Bypass,<br>Osmanabad, Maharashtra</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-phone-alt"></i>
+                            <span> 9322232299 / 7744872874</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            <span>CareConnect00@gmail.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2026 Care Connect Hospital. All Rights Reserved. | Designed for Final Year Project</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

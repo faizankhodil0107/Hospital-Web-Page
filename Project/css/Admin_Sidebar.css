@@ -1,0 +1,113 @@
+     /* Sidebar */
+     :root {
+            --sidebar-width: 230px;
+            --sidebar-collapsed: 80px;
+            --header-height: 70px;
+        }  
+     
+     .admin-sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            height: 100vh;
+            width: var(--sidebar-width);
+            background: linear-gradient(180deg, #0D9488 0%, #0F766E 100%);
+            padding: 1.5rem 1rem;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            overflow-y: auto;
+        }
+        
+        .admin-sidebar.collapsed {
+            width: var(--sidebar-collapsed);
+        }
+        
+        .sidebar-logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 1.5rem;
+        }
+        
+        .sidebar-logo img {
+            height: 45px;
+            width: 45px;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+        
+        .sidebar-logo h3 {
+            color: white;
+            font-size: 1.25rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+        
+        .admin-sidebar.collapsed .sidebar-logo h3 {
+            display: none;
+        }
+        
+        .sidebar-nav {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .sidebar-nav li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .sidebar-nav a {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.875rem 1rem;
+            color: rgba(255,255,255,0.8);
+            border-radius: 0.75rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+        
+        .sidebar-nav a:hover,
+        .sidebar-nav a.active {
+            background: rgba(255,255,255,0.15);
+            color: white;
+        }
+        
+        .sidebar-nav a.active {
+            background: white;
+            color: #0D9488;
+        }
+        
+        .sidebar-nav i {
+            font-size: 1.25rem;
+            width: 24px;
+            text-align: center;
+        }
+        
+        .admin-sidebar.collapsed .sidebar-nav span {
+            display: none;
+        }
+        
+        .sidebar-toggle {
+            position: absolute;
+            bottom: 1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255,255,255,0.2);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .sidebar-toggle:hover {
+            background: white;
+            color: #0D9488;
+        }

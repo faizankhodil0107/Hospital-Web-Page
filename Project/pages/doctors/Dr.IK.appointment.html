@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dr. Ibrahim Khodil - Care Connect Hospital</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../doctors/abt.dr.ex.css">
+    <link rel="stylesheet" href="./main.css">
+    
+    <style>
+        .doctor-profile-hero {
+            background: linear-gradient(135deg, rgba(13, 148, 136, 0.95) 0%, rgba(14, 165, 233, 0.95) 100%);
+            padding: 4rem 0;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .doctor-profile-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23ffffff" fill-opacity="0.05"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
+        }
+        
+        .doctor-profile-card {
+            background: var(--white);
+            border-radius: 1.5rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            margin-top: -100px;
+            position: relative;
+            z-index: 10;
+            overflow: hidden;
+        }
+        
+        .doctor-profile-header {
+            padding: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .doctor-avatar-large {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid white;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .doctor-profile-info h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .doctor-specialty-badge {
+            background: linear-gradient(135deg, #0D9488, #0EA5E9);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+        
+        .doctor-meta {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-muted);
+        }
+        
+        .meta-item i {
+            color: var(--primary-teal);
+        }
+        
+        .doctor-stats-row {
+            display: flex;
+            gap: 2rem;
+            padding: 1.5rem 2rem;
+            background: var(--light-bg);
+        }
+        
+        .doctor-stat {
+            text-align: center;
+        }
+        
+        .doctor-stat-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #0D9488, #0EA5E9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 0.75rem;
+            color: white;
+            font-size: 1.25rem;
+        }
+        
+        .doctor-stat h4 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+        
+        .doctor-stat p {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            margin: 0;
+        }
+        
+        .booking-section {
+            padding: 2rem;
+        }
+        
+        .time-slots {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .time-slot {
+            padding: 0.75rem;
+            border: 2px solid var(--border-color);
+            border-radius: 0.5rem;
+            text-align: center;
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition-base);
+        }
+        
+        .time-slot:hover {
+            border-color: var(--primary-teal);
+            background: rgba(13, 148, 136, 0.05);
+        }
+        
+        .time-slot.selected {
+            background: var(--primary-teal);
+            border-color: var(--primary-teal);
+            color: white;
+        }
+        
+        .day-selector {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            overflow-x: auto;
+            padding-bottom: 0.5rem;
+        }
+        
+        .day-card {
+            min-width: 70px;
+            padding: 0.75rem;
+            border: 2px solid var(--border-color);
+            border-radius: 0.75rem;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition-base);
+        }
+        
+        .day-card:hover {
+            border-color: var(--primary-teal);
+        }
+        
+        .day-card.active {
+            border-color: var(--primary-teal);
+            background: var(--primary-teal);
+            color: white;
+        }
+        
+        .day-card .day-name {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .day-card .day-date {
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+        
+        .about-section {
+            padding: 2rem;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .about-section h3 {
+            margin-bottom: 1rem;
+        }
+        
+        .about-section p {
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+        
+        .qualification-item {
+            background: var(--light-bg);
+            padding: 1rem;
+            border-radius: 0.75rem;
+            margin-bottom: 1rem;
+        }
+        
+        .qualification-item h5 {
+            color: var(--primary-teal);
+            margin-bottom: 0.5rem;
+        }
+        
+        .qualification-item p {
+            margin: 0;
+            font-size: 0.875rem;
+        }
+        
+        .reviews-section {
+            padding: 2rem;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        @media (max-width: 768px) {
+            .doctor-profile-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .doctor-meta {
+                justify-content: center;
+            }
+            
+            .doctor-stats-row {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .time-slots {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="hospital-header">
+        <div class="header-container">
+            <div class="logo-section">
+                <a href="../index.html">
+                    <img src="../css/CareConnect Logo.png" alt="Care Connect" class="logo-img">
+                </a>
+                <span class="logo-text">Care Connect</span>
+            </div>
+            
+            <button class="menu-toggle" id="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            
+            <nav class="main-nav" id="main-nav">
+                <a href="../index.html" class="nav-link">
+                    <i class="fas fa-home me-2 d-lg-none"></i>Home
+                </a>
+                <a href="../abt.Dr.html" class="nav-link">
+                    <i class="fas fa-user-md me-2 d-lg-none"></i>Doctors
+                </a>
+                <a href="../appointment.html" class="nav-link">
+                    <i class="fas fa-calendar-check me-2 d-lg-none"></i>Appointment
+                </a>
+                <a href="./Login.html" class="nav-link">
+                    <i class="fas fa-notes-medical me-2 d-lg-none"></i>Patient Portal
+                </a>
+                <a href="../contact.html" class="nav-link">
+                    <i class="fas fa-envelope me-2 d-lg-none"></i>Contact
+                </a>
+            </nav>
+            
+            <div class="header-actions">
+                <button class="theme-toggle" id="theme-toggle" title="Toggle Theme">
+                    <i class="fas fa-moon"></i>
+                </button>
+                
+                <a href="../Login.html" class="btn btn-primary">
+                    <i class="fas fa-sign-in-alt me-2"></i>Login
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Doctor Profile Hero -->
+    <section class="doctor-profile-hero">
+        <div class="container text-center position-relative">
+            <h1 class="mb-2">Doctor Profile</h1>
+            <p class="lead">Book an appointment with our expert specialist</p>
+        </div>
+    </section>
+
+    <!-- Doctor Profile Card -->
+    <section class="section" style="padding-top: 0;">
+        <div class="container">
+            <div class="doctor-profile-card">
+                <div class="doctor-profile-header">
+                    <img src="../css/milky-way-glows-mountain-peak-dusk-generated-by-ai (1).jpg" alt="Dr. Ibrahim Khodil" class="doctor-avatar-large">
+                    <div class="doctor-profile-info">
+                        <h1>Dr. Ibrahim Khodil</h1>
+                        <span class="doctor-specialty-badge">Cardiologist</span>
+                        <div class="doctor-meta">
+                            <div class="meta-item">
+                                <i class="fas fa-certificate"></i>
+                                <span>15+ Years Experience</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-star text-warning"></i>
+                                <span>4.9 Rating</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-user-md"></i>
+                                <span>5000+ Patients</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="doctor-stats-row">
+                    <div class="doctor-stat">
+                        <div class="doctor-stat-icon">
+                            <i class="fas fa-briefcase-medical"></i>
+                        </div>
+                        <h4>15+</h4>
+                        <p>Years Exp.</p>
+                    </div>
+                    <div class="doctor-stat">
+                        <div class="doctor-stat-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h4>5000+</h4>
+                        <p>Patients</p>
+                    </div>
+                    <div class="doctor-stat">
+                        <div class="doctor-stat-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <h4>4.9</h4>
+                        <p>Rating</p>
+                    </div>
+                    <div class="doctor-stat">
+                        <div class="doctor-stat-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <h4>98%</h4>
+                        <p>Success Rate</p>
+                    </div>
+                </div>
+                
+                <div class="booking-section">
+                    <h3 class="mb-4"><i class="fas fa-calendar-check me-2"></i>Book Appointment</h3>
+                    
+                    <!-- Day Selector -->
+                    <div class="day-selector" id="daySelector">
+                        <!-- Generated by JavaScript -->
+                    </div>
+                    
+                    <!-- Time Slots -->
+                    <h5 class="mb-3">Select Time Slot</h5>
+                    <div class="time-slots" id="timeSlots">
+                        <div class="time-slot" onclick="selectTime(this, '09:00 AM')">09:00 AM</div>
+                        <div class="time-slot" onclick="selectTime(this, '09:30 AM')">09:30 AM</div>
+                        <div class="time-slot" onclick="selectTime(this, '10:00 AM')">10:00 AM</div>
+                        <div class="time-slot" onclick="selectTime(this, '10:30 AM')">10:30 AM</div>
+                        <div class="time-slot" onclick="selectTime(this, '11:00 AM')">11:00 AM</div>
+                        <div class="time-slot" onclick="selectTime(this, '11:30 AM')">11:30 AM</div>
+                        <div class="time-slot" onclick="selectTime(this, '02:00 PM')">02:00 PM</div>
+                        <div class="time-slot" onclick="selectTime(this, '02:30 PM')">02:30 PM</div>
+                        <div class="time-slot" onclick="selectTime(this, '03:00 PM')">03:00 PM</div>
+                        <div class="time-slot" onclick="selectTime(this, '03:30 PM')">03:30 PM</div>
+                        <div class="time-slot" onclick="selectTime(this, '04:00 PM')">04:00 PM</div>
+                        <div class="time-slot" onclick="selectTime(this, '04:30 PM')">04:30 PM</div>
+                    </div>
+                    
+                    <input type="hidden" id="selectedDate" value="">
+                    <input type="hidden" id="selectedTime" value="">
+                    
+                    <button class="btn btn-primary btn-lg w-100" onclick="bookAppointment()">
+                        <i class="fas fa-calendar-plus me-2"></i>Book Appointment
+                    </button>
+                </div>
+                
+                <div class="about-section">
+                    <h3>About Dr. Ibrahim Khodil</h3>
+                    <p>Dr. Ibrahim Khodil is a highly experienced cardiologist with over 15 years of expertise in treating cardiovascular diseases. He specializes in preventive cardiology, heart failure management, and interventional procedures. With a patient-centered approach, Dr. Khodil is committed to providing comprehensive cardiac care using the latest medical technologies and treatment protocols.</p>
+                    
+                    <h4 class="mt-4 mb-3">Qualifications</h4>
+                    <div class="qualification-item">
+                        <h5>MD - Cardiology</h5>
+                        <p>America, 2008</p>
+                    </div>
+                    <div class="qualification-item">
+                        <h5>MBBS</h5>
+                        <p>DMSFI, Davao City, Philippines 2003</p>
+                    </div>
+                    <div class="qualification-item">
+                        <h5>Fellowship in Interventional Cardiology</h5>
+                        <p>Apollo Hospitals, Chennai, 2012</p>
+                    </div>
+                </div>
+                
+                <div class="reviews-section">
+                    <h3>Patient Reviews</h3>
+                    <div class="review-card">
+                        <div class="review-header">
+                            <div class="review-avatar">RK</div>
+                            <div class="review-info">
+                                <h5>Rohit Kumar</h5>
+                                <span class="review-date">January 2025</span>
+                            </div>
+                        </div>
+                        <div class="review-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="review-text">Excellent doctor! Very thorough in explaining the condition and treatment. Highly recommended for cardiac issues.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2025 Care Connect Hospital. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/main.js"></script>
+    <script>
+        // Generate day selector
+        function generateDaySelector() {
+            const container = document.getElementById('daySelector');
+            const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+            const today = new Date();
+            
+            for (let i = 0; i < 7; i++) {
+                const date = new Date(today);
+                date.setDate(today.getDate() + i);
+                
+                const dayCard = document.createElement('div');
+                dayCard.className = `day-card ${i === 0 ? 'active' : ''}`;
+                dayCard.onclick = () => selectDay(dayCard, date.toISOString().split('T')[0]);
+                
+                dayCard.innerHTML = `
+                    <div class="day-name">${days[date.getDay()]}</div>
+                    <div class="day-date">${date.getDate()}</div>
+                `;
+                
+                container.appendChild(dayCard);
+            }
+            
+            // Set default date
+            document.getElementById('selectedDate').value = today.toISOString().split('T')[0];
+        }
+        
+        function selectDay(element, date) {
+            document.querySelectorAll('.day-card').forEach(card => card.classList.remove('active'));
+            element.classList.add('active');
+            document.getElementById('selectedDate').value = date;
+        }
+        
+        function selectTime(element, time) {
+            document.querySelectorAll('.time-slot').forEach(slot => slot.classList.remove('selected'));
+            element.classList.add('selected');
+            document.getElementById('selectedTime').value = time;
+        }
+        
+        function bookAppointment() {
+            const date = document.getElementById('selectedDate').value;
+            const time = document.getElementById('selectedTime').value;
+            
+            if (!time) {
+                showToast('Please select a time slot', 'Choose your preferred time', 'warning');
+                return;
+            }
+            
+            showToast('Appointment Booked!', `Your appointment with Dr. Ibrahim Khodil on ${date} at ${time} has been confirmed.`, 'success');
+        }
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', generateDaySelector);
+    </script>
+</body>
+</html>

@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Room & Bed Management - Care Connect</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        /* --- Color Palette --- */
+        :root {
+            --care-connect-blue: #007BFF; /* Primary Hospital Blue */
+            --care-connect-light: #E8F5FF; /* Light Blue/Off-White Background */
+            --white: #FFFFFF;
+            --dark-text: #333;
+            --alert-red: #DC3545;
+            --alert-background: #F8D7DA;
+            --success-green: #28a745;
+            --general-bg: #f8f9fa;
+            --shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        /* --- Base & Typography --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--care-connect-light);
+            color: var(--dark-text);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+
+        /* --- Header & Action Button --- */
+        header {
+            background-color: var(--care-connect-blue);
+            color: var(--white);
+            padding: 15px 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            font-size: 1.5em;
+            font-weight: 500;
+        }
+
+        header i {
+            font-size: 1.8em;
+            margin-right: 10px;
+        }
+
+        #add-bed-btn {
+            background: var(--white);
+            color: var(--care-connect-blue);
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        #add-bed-btn:hover {
+            background-color: #f0f0f0;
+        }
+
+        /* --- Dashboard Metrics --- */
+        .dashboard-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .metric-card {
+            background: var(--white);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            min-height: 100px;
+        }
+
+        .metric-card i {
+            font-size: 2.5em;
+            color: var(--care-connect-blue);
+            margin-right: 15px;
+        }
+
+        .metric-card h2 {
+            font-size: 1.1em;
+            margin-bottom: 5px;
+            color: var(--dark-text);
+        }
+
+        .metric-card p {
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        /* Bed Management Status */
+        .available {
+            border-left: 5px solid var(--success-green);
+            background-color: #d4edda;
+        }
+        .occupied {
+            border-left: 5px solid var(--alert-red);
+            background-color: var(--alert-background);
+        }
+        .bed-card i {
+             color: var(--success-green);
+        }
+        .occupied i {
+            color: var(--alert-red);
+        }
+
+        /* --- List & Table --- */
+        .section-panel {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+        }
+
+        .section-panel h2 {
+            color: var(--care-connect-blue);
+            margin-bottom: 20px;
+        }
+
+        .search-bar {
+            display: flex;
+            margin-bottom: 20px;
+        }
+
+        .search-bar input {
+            flex-grow: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-right: none;
+            border-radius: 4px 0 0 4px;
+            font-size: 1em;
+        }
+
+        .search-bar button {
+            background-color: var(--care-connect-blue);
+            color: var(--white);
+            border: none;
+            padding: 10px 15px;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+        }
+
+        .table-responsive {
+            overflow-x: auto; 
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 700px; 
+        }
+
+        table th, table td {
+            border: 1px solid #eee;
+            padding: 12px 15px;
+            text-align: left;
+        }
+
+        table th {
+            background-color: var(--care-connect-blue);
+            color: var(--white);
+            font-weight: 600;
+        }
+
+        table tbody tr:nth-child(even) {
+            background-color: var(--care-connect-light);
+        }
+
+        .occupied-row {
+            background-color: var(--alert-background) !important;
+            color: var(--alert-red);
+            font-weight: bold;
+        }
+        .available-row {
+            background-color: #f0fff0 !important;
+        }
+
+        .action-buttons button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            margin-right: 5px;
+            color: var(--care-connect-blue);
+            font-size: 1em;
+            transition: color 0.2s;
+        }
+
+        .action-buttons button:hover {
+            color: #0056b3;
+        }
+
+        .release-btn {
+            color: var(--alert-red) !important;
+        }
+        .release-btn:hover {
+            color: #a00;
+        }
+        
+        .delete-btn {
+            color: #6c757d !important; /* Gray for destructive action */
+        }
+        .delete-btn:hover {
+            color: #333;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+        
+        /* Ward Labels */
+        .ward-label {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 0.85em;
+        }
+        .ward-icu { background-color: #f5c6cb; color: #721c24; }
+        .ward-general { background-color: #cce5ff; color: #004085; }
+        .ward-private { background-color: #ffeeba; color: #856404; }
+
+
+        /* --- Modal Styles --- */
+        .modal {
+            display: none; 
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-content {
+            background-color: var(--white);
+            margin: 10% auto; 
+            padding: 30px;
+            border-radius: 8px;
+            width: 90%; 
+            max-width: 500px; 
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        .close-btn {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close-btn:hover {
+            color: var(--dark-text);
+        }
+
+        #bed-modal-title {
+            color: var(--care-connect-blue);
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .submit-btn {
+            background-color: var(--care-connect-blue);
+            color: var(--white);
+            border: none;
+            padding: 12px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .submit-btn:hover {
+            background-color: #0056b3;
+        }
+
+        /* --- Responsiveness --- */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            header h1 {
+                margin-bottom: 15px;
+                font-size: 1.3em;
+            }
+
+            #add-bed-btn {
+                width: 100%;
+            }
+
+            .section-panel {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <i class="fas fa-bed"></i>
+            
+            <h1>Care Connect Room & Bed Management</h1>
+            <button id="add-bed-btn"><i class="fas fa-plus"></i> Add New Room/Bed</button> 
+        </div>
+    </header>
+
+    <main class="container">
+        
+        <div class="dashboard-metrics" id="bed-metrics">
+            <div class="metric-card bed-card available">
+                <i class="fas fa-check-circle"></i>
+                <div>
+                    <h2>Available Beds</h2>
+                    <p id="available-beds-count">0</p>
+                </div>
+            </div>
+            <div class="metric-card bed-card occupied">
+                <i class="fas fa-bed"></i>
+                <div>
+                    <h2>Occupied Beds</h2>
+                    <p id="occupied-beds-count">0</p>
+                </div>
+            </div>
+            <div class="metric-card">
+                <i class="fas fa-hospital-alt"></i>
+                <div>
+                    <h2>Total Rooms</h2>
+                    <p id="total-rooms-count">0</p>
+                </div>
+            </div>
+        </div>
+
+        <section class="section-panel" id="bed-list-section">
+            <h2>Bed Allocation List</h2>
+            <div class="search-bar">
+                <input type="text" id="bed-search-input" placeholder="Search by Room, Bed, or Patient...">
+                <button><i class="fas fa-search"></i></button>
+            </div>
+            
+            <div class="table-responsive">
+                <table id="bed-table">
+                    <thead>
+                        <tr>
+                            <th>Room No.</th>
+                            <th>Bed ID</th>
+                            <th>Ward Type</th>
+                            <th>Status</th>
+                            <th>Patient Name</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        </tbody>
+                </table>
+            </div>
+            <p id="no-beds" class="hidden">No rooms or beds configured.</p>
+        </section>
+
+    </main>
+
+    <div id="bed-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('bed-modal')">&times;</span>
+            <h2 id="bed-modal-title">Manage Bed</h2>
+            <form id="bed-form">
+                <input type="hidden" id="bed-internal-id">
+                <div class="form-group"><label for="bed-room">Room Number</label><input type="text" id="bed-room" required></div>
+                <div class="form-group"><label for="bed-id-input">Bed Identifier (e.g., A, B, 1)</label><input type="text" id="bed-id-input" required></div>
+                <div class="form-group">
+                    <label for="bed-ward">Ward Type</label>
+                    <select id="bed-ward" required>
+                        <option value="General">General</option>
+                        <option value="Private">Private</option>
+                        <option value="ICU">ICU</option>
+                    </select>
+                </div>
+                <div class="form-group" id="patient-name-group">
+                    <label for="bed-patient">Patient Name (Optional)</label>
+                    <input type="text" id="bed-patient" placeholder="Leave blank if available">
+                </div>
+                <button type="submit" class="submit-btn" id="bed-form-submit-btn">Save Bed Details</button>
+            </form>
+        </div>
+    </div>
+
+
+    <script>
+        // --- Shared Utilities ---
+        function closeModal(id) {
+            document.getElementById(id).style.display = 'none';
+        }
+        
+        // =========================================================================
+        // ROOM & BED MANAGEMENT LOGIC
+        // =========================================================================
+
+        let bedInventory = [
+            { internalId: 1, roomNo: 'A101', bedId: 'A', ward: 'General', status: 'Occupied', patient: 'John Doe' },
+            { internalId: 2, roomNo: 'A101', bedId: 'B', ward: 'General', status: 'Available', patient: '' },
+            { internalId: 3, roomNo: 'P201', bedId: '1', ward: 'Private', status: 'Available', patient: '' },
+            { internalId: 4, roomNo: 'ICU05', bedId: 'C', ward: 'ICU', status: 'Occupied', patient: 'Jane Smith' },
+        ];
+
+        const bedModal = document.getElementById('bed-modal');
+        const bedForm = document.getElementById('bed-form');
+        const bedModalTitle = document.getElementById('bed-modal-title');
+        const bedSubmitBtn = document.getElementById('bed-form-submit-btn');
+
+        /**
+         * Loads inventory from Local Storage or uses default data.
+         */
+        function loadBedInventory() {
+            const data = localStorage.getItem('careConnectBedInventory');
+            if (data) {
+                bedInventory = JSON.parse(data);
+            }
+        }
+
+        /**
+         * Saves current inventory to Local Storage.
+         */
+        function saveBedInventory() {
+            localStorage.setItem('careConnectBedInventory', JSON.stringify(bedInventory));
+        }
+
+        /**
+         * Updates dashboard metrics for beds.
+         */
+        function updateBedMetrics() {
+            const availableCount = bedInventory.filter(b => b.status === 'Available').length;
+            const occupiedCount = bedInventory.filter(b => b.status === 'Occupied').length;
+            // Count unique room numbers
+            const totalRooms = new Set(bedInventory.map(b => b.roomNo)).size;
+
+            document.getElementById('available-beds-count').textContent = availableCount.toLocaleString();
+            document.getElementById('occupied-beds-count').textContent = occupiedCount.toLocaleString();
+            document.getElementById('total-rooms-count').textContent = totalRooms.toLocaleString();
+        }
+
+        /**
+         * Generates the styled ward label HTML.
+         */
+        function getWardLabel(ward) {
+            const className = `ward-${ward.toLowerCase()}`;
+            return `<span class="ward-label ${className}">${ward}</span>`;
+        }
+
+        /**
+         * Renders the bed allocation table.
+         * @param {Array} list - The list of beds to render (can be a search result).
+         */
+        function renderBedList(list = bedInventory) {
+            const tableBody = document.getElementById('bed-table').getElementsByTagName('tbody')[0];
+            const noBeds = document.getElementById('no-beds');
+            tableBody.innerHTML = '';
+            
+             if (list.length === 0) {
+                noBeds.classList.remove('hidden');
+            } else {
+                 noBeds.classList.add('hidden');
+            }
+
+            list.forEach(bed => {
+                const row = tableBody.insertRow();
+                row.classList.add(bed.status === 'Occupied' ? 'occupied-row' : 'available-row');
+
+                row.insertCell().textContent = bed.roomNo;
+                row.insertCell().textContent = bed.bedId;
+                row.insertCell().innerHTML = getWardLabel(bed.ward);
+                row.insertCell().textContent = bed.status;
+                row.insertCell().textContent = bed.patient || 'N/A';
+
+                const actionCell = row.insertCell();
+                actionCell.className = 'action-buttons';
+                
+                if (bed.status === 'Available') {
+                    actionCell.innerHTML = `
+                        <button onclick="allocateBed(${bed.internalId})"><i class="fas fa-user-plus"></i> Allocate</button>
+                        <button class="delete-btn" onclick="deleteBed(${bed.internalId})"><i class="fas fa-trash-alt"></i> Delete</button>
+                    `;
+                } else {
+                    actionCell.innerHTML = `
+                        <button class="release-btn" onclick="releaseBed(${bed.internalId})"><i class="fas fa-sign-out-alt"></i> Release</button>
+                        <button onclick="editBed(${bed.internalId})"><i class="fas fa-edit"></i> Edit</button>
+                    `;
+                }
+            });
+            updateBedMetrics();
+        }
+
+        /**
+         * Opens modal for adding a new room/bed.
+         */
+        function openAddBedModal() {
+            bedForm.reset();
+            document.getElementById('bed-internal-id').value = '';
+            document.getElementById('bed-room').readOnly = false;
+            document.getElementById('bed-id-input').readOnly = false;
+            document.getElementById('bed-ward').disabled = false;
+            document.getElementById('patient-name-group').style.display = 'block';
+            bedModalTitle.textContent = 'Add New Room/Bed Unit';
+            bedSubmitBtn.textContent = 'Save New Bed';
+            bedModal.style.display = 'block';
+        }
+
+        /**
+         * Opens modal and pre-fills form for editing bed details.
+         */
+        function editBed(internalId) {
+            const bed = bedInventory.find(b => b.internalId === internalId);
+            if (!bed) return;
+
+            bedModalTitle.textContent = 'Edit Bed Details';
+            bedSubmitBtn.textContent = 'Update Bed';
+            
+            document.getElementById('bed-internal-id').value = bed.internalId;
+            document.getElementById('bed-room').value = bed.roomNo;
+            document.getElementById('bed-id-input').value = bed.bedId;
+            document.getElementById('bed-ward').value = bed.ward;
+            document.getElementById('bed-patient').value = bed.patient;
+
+            // Prevent editing Room/Bed ID and Ward since it's a key identifier
+            document.getElementById('bed-room').readOnly = true;
+            document.getElementById('bed-id-input').readOnly = true;
+            document.getElementById('bed-ward').disabled = true;
+            document.getElementById('patient-name-group').style.display = 'block';
+            
+            bedModal.style.display = 'block';
+        }
+
+        /**
+         * Opens modal to allocate a patient to an available bed.
+         */
+        function allocateBed(internalId) {
+            const bed = bedInventory.find(b => b.internalId === internalId);
+            if (!bed) return;
+
+            bedModalTitle.textContent = `Allocate Patient to ${bed.roomNo}-${bed.bedId}`;
+            bedSubmitBtn.textContent = 'Allocate Patient';
+            
+            document.getElementById('bed-internal-id').value = internalId;
+            document.getElementById('bed-room').value = bed.roomNo;
+            document.getElementById('bed-id-input').value = bed.bedId;
+            document.getElementById('bed-ward').value = bed.ward;
+            document.getElementById('bed-patient').value = ''; // Clear patient name for new allocation
+
+            // Lock all fields except patient name for allocation
+            document.getElementById('bed-room').readOnly = true;
+            document.getElementById('bed-id-input').readOnly = true;
+            document.getElementById('bed-ward').disabled = true;
+            document.getElementById('patient-name-group').style.display = 'block';
+            
+            bedModal.style.display = 'block';
+        }
+
+        /**
+         * Releases an occupied bed.
+         */
+        function releaseBed(internalId) {
+             if (confirm("Are you sure you want to RELEASE this bed?")) {
+                const index = bedInventory.findIndex(b => b.internalId === internalId);
+                if (index !== -1) {
+                    bedInventory[index].status = 'Available';
+                    bedInventory[index].patient = '';
+                    saveBedInventory();
+                    renderBedList();
+                }
+            }
+        }
+
+        /**
+         * Handles form submission for adding, updating, or allocating a bed.
+         */
+        bedForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const internalId = document.getElementById('bed-internal-id').value;
+            const patientName = document.getElementById('bed-patient').value.trim();
+            const roomNo = document.getElementById('bed-room').value.toUpperCase();
+            const bedId = document.getElementById('bed-id-input').value.toUpperCase();
+            const ward = document.getElementById('bed-ward').value;
+
+            if (internalId) {
+                // UPDATE or ALLOCATE operation
+                const index = bedInventory.findIndex(b => b.internalId === parseInt(internalId));
+                if (index !== -1) {
+                    
+                    if (bedInventory[index].status === 'Available' && patientName !== '') {
+                        // Allocation
+                        bedInventory[index].status = 'Occupied';
+                        bedInventory[index].patient = patientName;
+                    } else if (patientName === '') {
+                        // Release (safety net, usually done by button)
+                        bedInventory[index].status = 'Available';
+                        bedInventory[index].patient = '';
+                    } else {
+                        // General Update (Patient name change while occupied)
+                        bedInventory[index].patient = patientName;
+                    }
+                    
+                    // Re-enable fields after submission
+                    document.getElementById('bed-room').readOnly = false;
+                    document.getElementById('bed-id-input').readOnly = false;
+                    document.getElementById('bed-ward').disabled = false;
+                }
+
+            } else {
+                // ADD operation (New Bed)
+                const newBed = {
+                    internalId: bedInventory.length > 0 ? Math.max(...bedInventory.map(b => b.internalId)) + 1 : 1,
+                    roomNo: roomNo,
+                    bedId: bedId,
+                    ward: ward,
+                    status: patientName ? 'Occupied' : 'Available',
+                    patient: patientName,
+                };
+                bedInventory.push(newBed);
+            }
+
+            saveBedInventory();
+            renderBedList();
+            bedModal.style.display = 'none';
+        });
+
+        /**
+         * Deletes a room/bed unit from the inventory.
+         */
+        function deleteBed(internalId) {
+            if (confirm("WARNING: Deleting this removes the room/bed unit from the system permanently. Continue?")) {
+                bedInventory = bedInventory.filter(bed => bed.internalId !== internalId);
+                saveBedInventory();
+                renderBedList();
+            }
+        }
+
+        /**
+         * Handles search input filtering the list.
+         */
+        document.getElementById('bed-search-input').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const filteredList = bedInventory.filter(bed => 
+                bed.roomNo.toLowerCase().includes(searchTerm) || 
+                bed.bedId.toLowerCase().includes(searchTerm) || 
+                bed.patient.toLowerCase().includes(searchTerm)
+            );
+            renderBedList(filteredList);
+        });
+
+
+        // --- Initialization ---
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadBedInventory();
+            renderBedList();
+            
+            // Event listener for the main Add button
+            document.getElementById('add-bed-btn').onclick = openAddBedModal;
+
+            // Set up universal modal closing on outside click
+            window.onclick = (event) => {
+                if (event.target == bedModal) {
+                    closeModal('bed-modal');
+                }
+            };
+        });
+    </script>
+</body>
+</html>
