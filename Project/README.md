@@ -63,7 +63,7 @@ A modern, production-ready hospital management web application for final year co
 ## 📁 Project Structure
 
 ```
-Project X - Copy/
+Project /
 ├── css/
 │   └── main.css          # Global styles & theme
 ├── js/
