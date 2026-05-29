@@ -72,7 +72,7 @@ async function sendMessage() {
 
   try {
     // 3. Fetch from the correct API endpoint
-    const response = await fetch('https://hospital-web-page1.onrender.com/api/chatbot/message', {
+    const response = await fetch('https://chatbot-project-1rrr.onrender.com/api/chatbot/message', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ patientDetails, message })
