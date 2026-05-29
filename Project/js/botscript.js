@@ -57,7 +57,7 @@ async function sendMessage() {
   const typingEl = addMessage('bot', 'Typing...');
 
   try {
-    const response = await fetch('https://hospital-web-page1.onrender.com', {
+    const response = await fetch('https://hospital-web-page1.onrender.com/api/chatbot/message', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ patientDetails, message })
