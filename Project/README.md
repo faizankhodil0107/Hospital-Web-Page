@@ -121,6 +121,7 @@ This project is designed to impress:
 - ✅ Charts and dashboards
 - ✅ Dark mode
 - ✅ Smooth animations
+- quick outputs
 
 ## License
 
